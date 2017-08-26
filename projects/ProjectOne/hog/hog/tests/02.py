@@ -7,56 +7,50 @@ test = {
         {
           'code': r"""
           >>> take_turn(2, 0, make_test_dice(4, 6, 1))
-          70e71b420a966665c548a3bb2cb30d7d
-          # locked
+          10
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> take_turn(3, 0, make_test_dice(4, 6, 1))
-          43d176e102c8d95338faf8791aa509b3
-          # locked
+          1
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> take_turn(0, 35)
-          327b19ffebddf93982e1ad2a4a6486f4
-          # locked
+          6
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> take_turn(0, 71)
-          2aef307e1e3d3bb468f74013a49eb977
-          # locked
+          8
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> take_turn(0, 7)
-          2aef307e1e3d3bb468f74013a49eb977
-          # locked
+          8
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> take_turn(0, 0)
-          43d176e102c8d95338faf8791aa509b3
-          # locked
+          1
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
@@ -69,11 +63,10 @@ test = {
         {
           'code': r"""
           >>> take_turn(1, 0, make_test_dice(3)) # Remember Hogtimus Prime!
-          26f5762c932a578994ea1c8fc7fa6c02
-          # locked
+          5
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
@@ -117,16 +110,8 @@ test = {
         },
         {
           'code': r"""
-          >>> take_turn(10, 0, make_test_dice(5)) # Remember When Pigs Fly!
-          15
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
           >>> take_turn(9, 0, make_test_dice(4))
-          16
+          36
           """,
           'hidden': False,
           'locked': False
@@ -134,7 +119,7 @@ test = {
         {
           'code': r"""
           >>> take_turn(8, 0, make_test_dice(4))
-          17
+          32
           """,
           'hidden': False,
           'locked': False
@@ -142,7 +127,7 @@ test = {
         {
           'code': r"""
           >>> take_turn(7, 0, make_test_dice(4))
-          18
+          28
           """,
           'hidden': False,
           'locked': False
@@ -150,7 +135,7 @@ test = {
         {
           'code': r"""
           >>> take_turn(6, 0, make_test_dice(4))
-          19
+          24
           """,
           'hidden': False,
           'locked': False
@@ -169,7 +154,7 @@ test = {
           'code': r"""
           >>> hog.take_turn(5, 0) # Make sure you call roll_dice!
           Called roll dice!
-          20
+          9002
           """,
           'hidden': False,
           'locked': False

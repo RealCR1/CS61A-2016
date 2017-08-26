@@ -1,6 +1,6 @@
 {
   "name": "Project 1: Hog",
-  "endpoint": "cal/cs61a/fa16/proj01",
+  "endpoint": "cal/cs61a/sp17/hog",
   "src": [
     "hog.py"
   ],
@@ -23,6 +23,7 @@
       "unlock",
       "grading",
       "analytics",
+      "collaborate",
       "backup"
   ]
 }

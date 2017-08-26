@@ -13,30 +13,51 @@ GOAL_SCORE = 100  # The goal of Hog is to score 100 points.
 def roll_dice(num_rolls, dice=six_sided):
     """Simulate rolling the DICE exactly NUM_ROLLS>0 times. Return the sum of
     the outcomes unless any of the outcomes is 1. In that case, return the
-    number of 1's rolled.
+    number of 1's rolled (capped at 11 - NUM_ROLLS).
     """
     # These assert statements ensure that num_rolls is a positive integer.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
-    "*** REPLACE THIS LINE ***"
+    
+    #roll the dice at each time.
+    sum = 0
+    one_count = 0
+    num_rolls_use = num_rolls
+
+    while num_rolls > 0:
+        point = dice()
+        num_rolls -= 1
+        if point == 1:
+            one_count += 1
+        else:
+            sum = sum + point
+
+    #try to get true sum of this turn
+    if one_count > 0:
+        return min(one_count, 11-num_rolls_use)
+    else:
+        return sum
+
     # END PROBLEM 1
 
 
 def free_bacon(opponent_score):
     """Return the points scored from rolling 0 dice (Free Bacon)."""
     # BEGIN PROBLEM 2
-    "*** REPLACE THIS LINE ***"
+    first_number = opponent_score // 10
+    last_number = opponent_score % 10
+    return max(first_number, last_number) + 1
     # END PROBLEM 2
 
 
 # Write your prime functions here!
-
+    
 
 def take_turn(num_rolls, opponent_score, dice=six_sided):
     """Simulate a turn rolling NUM_ROLLS dice, which may be 0 (Free Bacon).
     Return the points scored for the turn by the current player. Also
-    implements the Hogtimus Prime and When Pigs Fly rules.
+    implements the Hogtimus Prime rule.
 
     num_rolls:       The number of dice rolls that will be made.
     opponent_score:  The total score of the opponent.
@@ -48,34 +69,50 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 2
-    "*** REPLACE THIS LINE ***"
+    this_turn_point = 0
+    if num_rolls == 0:
+        return  free_bacon(opponent_score)
+    else:
+        initial_point = roll_dice(num_rolls, dice)
+        return next_prime(initial_point)
+        
+        
+def is_prime(n):
+            i = 2 # As the begining of the iteration beacause either 1 or n is component of n.
+            while i < n:
+                if n % i == 0:
+                    return False
+                i += 1
+            return True
+
+def next_prime(n):
+            i = 0
+            n_plus = n + 2
+            if is_prime(n) and n > 1:
+
+                while not is_prime(n_plus):
+                    i += 1
+                    n_plus += 2*i
+                return n_plus
+            return n
+
     # END PROBLEM 2
 
+"""
+def select_dice(score, opponent_score):
+    """Select six-sided dice unless the sum of SCORE and OPPONENT_SCORE is a
+    multiple of 7, in which case select four-sided dice (Hog Wild).
+    """
+    # BEGIN PROBLEM 3
+    "*** REPLACE THIS LINE ***"
+    # END PROBLEM 3
 
-def reroll(dice):
-    """Return dice that return even outcomes and re-roll odd outcomes of DICE."""
-    def rerolled():
-        # BEGIN PROBLEM 3
-        "*** REPLACE THIS LINE ***"
-        return dice()  # Replace this statement
-        # END PROBLEM 3
-    return rerolled
-
-
-def select_dice(score, opponent_score, dice_swapped):
-    """Return the dice used for a turn, which may be re-rolled (Hog Wild) and/or
-    swapped for four-sided dice (Pork Chop).
-
-    DICE_SWAPPED is True if and only if four-sided dice are being used.
+def is_swap(score0, score1):
+    """Returns whether one of the scores is double the other.
     """
     # BEGIN PROBLEM 4
     "*** REPLACE THIS LINE ***"
-    dice = six_sided  # Replace this statement
     # END PROBLEM 4
-    if (score + opponent_score) % 7 == 0:
-        dice = reroll(dice)
-    return dice
-
 
 def other(player):
     """Return the other player, for a player PLAYER numbered 0 or 1.
@@ -102,7 +139,6 @@ def play(strategy0, strategy1, score0=0, score1=0, goal=GOAL_SCORE):
     score1   :  The starting score for Player 1
     """
     player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
-    dice_swapped = False  # Whether 4-sided dice have been swapped for 6-sided
     # BEGIN PROBLEM 5
     "*** REPLACE THIS LINE ***"
     # END PROBLEM 5
@@ -153,7 +189,7 @@ def check_strategy_roll(score, opponent_score, num_rolls):
     msg = 'strategy({}, {}) returned {}'.format(
         score, opponent_score, num_rolls)
     assert type(num_rolls) == int, msg + ' (not an integer)'
-    assert -1 <= num_rolls <= 10, msg + ' (invalid number of rolls)'
+    assert 0 <= num_rolls <= 10, msg + ' (invalid number of rolls)'
 
 
 def check_strategy(strategy, goal=GOAL_SCORE):
@@ -242,8 +278,8 @@ def run_experiments():
     if True:  # Change to False when done finding max_scoring_num_rolls
         six_sided_max = max_scoring_num_rolls(six_sided)
         print('Max scoring num rolls for six-sided dice:', six_sided_max)
-        rerolled_max = max_scoring_num_rolls(reroll(six_sided))
-        print('Max scoring num rolls for re-rolled dice:', rerolled_max)
+        four_sided_max = max_scoring_num_rolls(four_sided)
+        print('Max scoring num rolls for four-sided dice:', four_sided_max)
 
     if False:  # Change to True to test always_roll(8)
         print('always_roll(8) win rate:', average_win_rate(always_roll(8)))

@@ -44,36 +44,42 @@ test = {
       'cases': [
         {
           'code': r"""
+          >>> 
           >>> # Play function stops at goal
-          >>> s0, s1 = hog.play(always_roll(5), always_roll(3), score0=91, score1=10)
+          >>> s0, s1 = hog.play(always(5), always(3), score0=91, score1=10)
           >>> s0
-          106
+          17a90ac6d84565b47483000c22f1f6de
+          # locked
           >>> s1
-          10
+          70e71b420a966665c548a3bb2cb30d7d
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
-          >>> # Goal score is not hardwired, Hog Wild, When Pigs Fly
-          >>> s0, s1 = hog.play(always_roll(5), always_roll(5), goal=10)
+          >>> 
+          >>> # Goal score is not hardwired
+          >>> s0, s1 = hog.play(always(5), always(5), goal=10)
           >>> s0
-          20
+          c42887e7b9ffe8fc26bb57b61329f916
+          # locked
           >>> s1
-          0
+          26dad951f8e75106f151e4085e117edd
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
-          >>> # Swine Swap
-          >>> s0,s1 = hog.play(always_roll(5), always_roll(3), score0=5, score1=40, goal=50)
+          >>> 
+          >>> s0,s1 = hog.play(always(5), always(3), score0=2, score1=40, goal=50)
           >>> s0
-          55
+          24
           >>> s1
-          29
+          54
           """,
           'hidden': False,
           'locked': False
@@ -82,9 +88,9 @@ test = {
       'scored': True,
       'setup': r"""
       >>> import hog
-      >>> always_roll = hog.always_roll
-      >>> hog.reroll = lambda d: hog.make_test_dice(5)
+      >>> hog.four_sided = hog.make_test_dice(1)
       >>> hog.six_sided = hog.make_test_dice(3)
+      >>> always = hog.always_roll
       """,
       'teardown': '',
       'type': 'doctest'
@@ -93,20 +99,9 @@ test = {
       'cases': [
         {
           'code': r"""
-          >>> # Swine swap applies to 3 digit scores
-          >>> s0, s1 = hog.play(always_roll(5), always_roll(3), score0=95, score1=55)
-          >>> s0
-          55
-          >>> s1
-          110
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
+          >>> 
           >>> # Goal edge case
-          >>> s0, s1 = hog.play(always_roll(4), always_roll(3), score0=88, score1=20)
+          >>> s0, s1 = hog.play(always(4), always(3), score0=88, score1=20)
           >>> s0
           100
           >>> s1
@@ -117,10 +112,11 @@ test = {
         },
         {
           'code': r"""
+          >>> 
           >>> # Player 1 win
-          >>> s0, s1 = hog.play(always_roll(2), always_roll(4), score0=87, score1=88)
+          >>> s0, s1 = hog.play(always(4), always(4), score0=87, score1=88)
           >>> s0
-          97
+          91
           >>> s1
           100
           """,
@@ -134,29 +130,31 @@ test = {
           >>> strat1 = lambda score, opponent: opponent // 10
           >>> s0, s1 = hog.play(strat0, strat1, score0=40, score1=92)
           >>> s0
-          102
+          101
           >>> s1
-          62
+          73
           """,
           'hidden': False,
           'locked': False
         },
         {
           'code': r"""
+          >>> 
           >>> # Swine swap applies during Player 1 turn
-          >>> s0, s1 = hog.play(always_roll(5), always_roll(5), score0=40, score1=95)
+          >>> s0, s1 = hog.play(always(3), always(4), score0=45, score1=96)
           >>> s0
-          110
+          108
           >>> s1
-          55
+          54
           """,
           'hidden': False,
           'locked': False
         },
         {
           'code': r"""
+          >>> 
           >>> # Free bacon refers to correct opponent score
-          >>> s0, s1 = hog.play(always_roll(0), always_roll(0), score0=11, score1=99)
+          >>> s0, s1 = hog.play(always(0), always(0), score0=11, score1=99)
           >>> s0
           21
           >>> s1
@@ -167,8 +165,9 @@ test = {
         },
         {
           'code': r"""
+          >>> 
           >>> # Handle multiple turns
-          >>> s0, s1 = hog.play(always_roll(0), always_roll(0))
+          >>> s0, s1 = hog.play(always(0), always(0))
           >>> s0
           101
           >>> s1
@@ -179,73 +178,39 @@ test = {
         },
         {
           'code': r"""
+          >>> 
           >>> # Handle multiple turns
-          >>> s0, s1 = hog.play(always_roll(5), always_roll(0))
+          >>> s0, s1 = hog.play(always(6), always(0))
           >>> s0
-          110
+          115
           >>> s1
-          47
-          """,
-          'hidden': False,
-          'locked': False
-        }
-      ],
-      'scored': True,
-      'setup': r"""
-      >>> import hog
-      >>> always_roll = hog.always_roll
-      >>> hog.reroll = lambda d: hog.make_test_dice(5)
-      >>> hog.six_sided = hog.make_test_dice(3)
-      """,
-      'teardown': '',
-      'type': 'doctest'
-    },
-    {
-      'cases': [
-        {
-          'code': r"""
-          >>> # Assume that six-sided dice are in play
-          >>> s0, s1 = hog.play(always_roll(-1), always_roll(3), score0=98, score1=91)
-          >>> s0
-          100
-          >>> s1
-          96
+          52
           """,
           'hidden': False,
           'locked': False
         },
         {
           'code': r"""
-          >>> # Assume that six-sided dice are in play
-          >>> s0, s1 = hog.play(always_roll(-1), always_roll(3), score0=97, score1=90)
+          >>> 
+          >>> # Pig out for player 0's turn
+          >>> s0, s1 = hog.play(always(5), always(5), score0=99, score1=97)
           >>> s0
-          99
+          106
           >>> s1
-          104
+          97
           """,
           'hidden': False,
           'locked': False
         },
         {
           'code': r"""
-          >>> # Assume that six-sided dice are in play
-          >>> s0, s1 = hog.play(always_roll(-1), always_roll(3))
+          >>> 
+          >>> # No swap needed
+          >>> s0, s1 = hog.play(always(0), always(0), score0=98, score1=1)
           >>> s0
-          13
-          >>> s1
           101
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Assume that six-sided dice are in play
-          >>> s0, s1 = hog.play(always_roll(2), always_roll(-1))
-          >>> s0
-          104
           >>> s1
-          20
+          1
           """,
           'hidden': False,
           'locked': False
@@ -254,10 +219,9 @@ test = {
       'scored': True,
       'setup': r"""
       >>> import hog
-      >>> always_roll = hog.always_roll
-      >>> hog.reroll = lambda d: hog.make_test_dice(5)
-      >>> hog.six_sided = hog.make_test_dice(3)
+      >>> always = hog.always_roll
       >>> hog.four_sided = hog.make_test_dice(1)
+      >>> hog.six_sided = hog.make_test_dice(3)
       """,
       'teardown': '',
       'type': 'doctest'
@@ -279,6 +243,7 @@ test = {
       >>> # Failing this test means something is wrong, but you should
       >>> # look at other tests to see where the problem might be.
       >>> # Hint: make sure you're only calling take_turn once per turn!
+      >>> 
       >>> import hog, importlib
       >>> importlib.reload(hog)
       >>> import tests.play_utils

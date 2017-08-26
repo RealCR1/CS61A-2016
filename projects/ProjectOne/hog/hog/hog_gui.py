@@ -163,7 +163,7 @@ class HogGUI(Frame):
             i: Label(self.dice_frames[i//5]).
                     config(image=HogGUI.IMAGES[6]).
                     pack(side=LEFT)
-            for i in range(20)
+            for i in range(10)
         }
 
     def init_status(self):
@@ -198,18 +198,18 @@ class HogGUI(Frame):
 
     def clear_dice(self):
         """Unpacks (hides) all dice Labels."""
-        for i in range(20):
+        for i in range(10):
             self.dice[i].pack_forget()
 
     def roll(self):
         """Verify and set the number of rolls based on user input. As
         per game rules, a valid number of rolls must be an integer
-        greater than or equal to -1.
+        greater than or equal to 0.
         """
         result = self.roll_entry.text
         try:
-            rolls = 10 >= int(result) >= -1
-            assert rolls, 'Rolls must be between -1 and 10, inclusive'
+            rolls = 10 >= int(result) >= 0
+            assert rolls, 'Rolls must be between 0 and 10, inclusive'
             self.roll_verified.set(int(result))
         except (ValueError, AssertionError) as e:
             print(e)
@@ -306,7 +306,7 @@ def run_GUI(computer=False):
     root = Tk()
     root.title('The Game of Hog')
     root.minsize(520, 400)
-    root.geometry("520x600")
+    root.geometry("520x400")
 
     # Tkinter only works with GIFs
     HogGUI.IMAGES = {

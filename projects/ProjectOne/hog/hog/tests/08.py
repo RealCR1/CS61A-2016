@@ -26,22 +26,13 @@ test = {
       'cases': [
         {
           'code': r"""
-          >>> dice = make_test_dice(1)   # dice always returns 1
+          >>> dice = make_test_dice(3)   # dice always returns 3
           >>> max_scoring_num_rolls(dice, num_samples=1000)
           70e71b420a966665c548a3bb2cb30d7d
           # locked
           """,
           'hidden': False,
           'locked': True
-        },
-        {
-          'code': r"""
-          >>> dice = make_test_dice(3)   # dice always returns 3
-          >>> max_scoring_num_rolls(dice, num_samples=1000)
-          10
-          """,
-          'hidden': False,
-          'locked': False
         },
         {
           'code': r"""
@@ -76,11 +67,10 @@ test = {
           'code': r"""
           >>> dice = make_test_dice(1, 2)  # dice alternates 1 and 2
           >>> max_scoring_num_rolls(dice, num_samples=1000)
-          70e71b420a966665c548a3bb2cb30d7d
-          # locked
+          7
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""

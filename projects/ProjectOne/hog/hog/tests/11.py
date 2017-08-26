@@ -57,7 +57,7 @@ test = {
       'cases': [
         {
           'code': r"""
-          >>> final_win_rate() >= 0.70
+          >>> final_win_rate() >= 0.62
           True
           """,
           'hidden': False,
@@ -79,7 +79,7 @@ test = {
       'cases': [
         {
           'code': r"""
-          >>> final_win_rate() >= 0.80
+          >>> final_win_rate() >= 0.65
           True
           """,
           'hidden': False,

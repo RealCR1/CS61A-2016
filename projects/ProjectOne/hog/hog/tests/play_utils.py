@@ -18,7 +18,7 @@ def make_random_strat():
         # impact dice rolls.
         state = random.getstate()
         random.seed(hash((score, opponent_score, seed)))
-        roll = random.randrange(-1, 11)
+        roll = random.randrange(0, 11)
         random.setstate(state)
         return roll
     return random_strat
@@ -34,7 +34,6 @@ class GameTurn(object):
         self.num_rolls = num_rolls
         self.rolls = []
         self.dice_sides = 6
-        self.rerolled = False
         self.score0_final, self.score1_final = None, None
 
     def is_over(self):
@@ -70,22 +69,18 @@ class GameTurn(object):
     def turn_summary(self):
         """Returns a string containing a description of how who rolled how many
         dice this turn."""
-        if self.num_rolls == -1:
-            return 'Player {0} rolls -1 dice and swaps the dice'.format(self.who)
-        elif self.num_rolls == 0:
+        if self.num_rolls == 0:
             return 'Player {0} rolls 0 dice:'.format(self.who)
         elif self.num_rolls == 1:
-            return 'Player {0} rolls {1} {2}-sided {3}die:'.format(
+            return 'Player {0} rolls {1} {2}-sided die:'.format(
                     self.who,
                     self.num_rolls,
-                    'six' if self.dice_sides == 6 else 'four',
-                    "rerolled " if rerolled else "")
+                    'six' if self.dice_sides == 6 else 'four')
         else:
-            return 'Player {0} rolls {1} {2}-sided {3}dice:'.format(
+            return 'Player {0} rolls {1} {2}-sided dice:'.format(
                     self.who,
                     self.num_rolls,
-                    'six' if self.dice_sides == 6 else 'four',
-                    "rerolled " if self.rerolled else "")
+                    'six' if self.dice_sides == 6 else 'four')
 
     @property
     def turn_rolls(self):
@@ -100,16 +95,16 @@ class GameTurn(object):
             return ''
         return 'Dice sum: {0} {1}'.format(
                 sum(self.rolls),
-                '(rolled a 1)' if 1 in self.rolls else '')
+                '(rolled ones)' if 1 in self.rolls else '')
 
     def __repr__(self):
         return str((self.score0, self.score1, self.score0_final,
                 self.score1_final, self.who, self.num_rolls, self.dice_sides))
 
 
-def make_traced(s0, s1, six_sided, rerolled, four_sided, rerolled_four):
+def make_traced(s0, s1, six_sided, four_sided):
     """Given the strategy functions of player 0 and player 1, and six-sided and
-    rerolled dice, returns traced versions of the function to be used for the
+    four-sided dice, returns traced versions of the function to be used for the
     game, as well as a function to retrieve the trace.  """
     trace = []  # List of GameTurns
 
@@ -126,14 +121,11 @@ def make_traced(s0, s1, six_sided, rerolled, four_sided, rerolled_four):
             return num_rolls
         return traced_strategy
 
-    def make_traced_dice(dice, dice_sides, rerolled=False):
+    def make_traced_dice(dice, dice_sides):
         def traced_dice():
             roll = dice()
-            if rerolled and roll % 2 == 1:
-                roll = dice()
             if trace:
                 trace[-1].dice_sides = dice_sides
-                trace[-1].rerolled = rerolled
                 trace[-1].rolls.append(roll)
             return roll
         return traced_dice
@@ -148,29 +140,24 @@ def make_traced(s0, s1, six_sided, rerolled, four_sided, rerolled_four):
     return make_traced_strategy(s0, 0), \
         make_traced_strategy(s1, 1), \
         make_traced_dice(six_sided, 6), \
-        make_traced_dice(rerolled, 6, True), \
-        make_traced_dice(four_sided, 4, False), \
-        make_traced_dice(rerolled_four, 4, True), \
+        make_traced_dice(four_sided, 4), \
         get_trace
 
 
 def play_traced(hog, strat0, strat1):
     """Returns the trace of a hog game, given the HOG module, as well as the
     player 0 and 1 strategies for the game."""
-    reroll, six_sided, four_sided = hog.reroll, hog.six_sided, hog.four_sided
-    strat0, strat1, traced_six_sided, traced_rerolled, traced_four_sided, \
-        traced_rerolled_four, get_trace = \
-        make_traced(strat0, strat1, six_sided, reroll(six_sided), four_sided, reroll(four_sided))
+    four_sided, six_sided = hog.four_sided, hog.six_sided
+    strat0, strat1, traced_six_sided, traced_four_sided, get_trace = \
+        make_traced(strat0, strat1, six_sided, four_sided)
 
-    hog.reroll = lambda dice: traced_rerolled if dice == traced_six_sided else traced_four_sided
-    hog.six_sided = traced_six_sided
     hog.four_sided = traced_four_sided
+    hog.six_sided = traced_six_sided
     score0, score1 = hog.play(strat0, strat1)
     trace = get_trace(score0, score1)
 
-    hog.reroll = reroll
-    hog.six_sided = six_sided
     hog.four_sided = four_sided
+    hog.six_sided = six_sided
     return trace
 
 
