@@ -13,7 +13,7 @@ def factorial(n):
     if n == 0:
         return 1
     else:
-        return factorial(n-1)
+        return n * factorial(n-1)
 
 def skip_mul(n):
     """Return the product of n * (n - 2) * (n - 4) * ...
@@ -23,8 +23,12 @@ def skip_mul(n):
     >>> skip_mul(8) # 8 * 6 * 4 * 2
     384
     """
+    assert n >= 1,'Please check your input, it should be positive integar.'
+
     if n == 2:
         return 2
+    elif n == 1:
+        return 1
     else:
         return n * skip_mul(n - 2)
 
@@ -41,7 +45,13 @@ def gcd(a, b):
     >>> gcd(40, 40)
     40
     """
-    "*** YOUR CODE HERE ***"
+    a, b == max(a, b), min(a, b)
+    if a % b == 0:
+        return b
+    else:
+        return gcd(b, a % b)
+
+
 
 # Higher Order Functions
 
@@ -70,7 +80,16 @@ def count_cond(condition):
     >>> count_primes(20)   # 2, 3, 5, 7, 11, 13, 17, 19
     8
     """
-    "*** YOUR CODE HERE ***"
+    def counter(n):
+        i, count = 1, 0
+        while i <= n:
+            if condition(n, i):
+                count += 1
+            i += 1
+        return count
+    return counter
+            
+    
 
 def cycle(f1, f2, f3):
     """Returns a function that is itself a higher-order function.
@@ -98,4 +117,18 @@ def cycle(f1, f2, f3):
     >>> do_two_cycles(1)
     19
     """
-    "*** YOUR CODE HERE ***"
+    def ret_fn(n):
+        def ret(x):
+            i = 0
+            while i < n:
+                if i % 3 == 0:
+                    x = f1(x)
+                elif i % 3 == 1:
+                    x = f2(x)
+                else: 
+                    x = f3(x)
+                i += 1
+            return x
+        return ret
+    return ret_fn
+    
