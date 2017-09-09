@@ -11,8 +11,8 @@ def lambda_curry2(func):
     >>> add_three(5)
     8
     """
-    "*** YOUR CODE HERE ***"
-    return ______
+    
+    return lambda argument_one: lambda argument_two: func(argument_one,argument_two)
 
 # Higher Order Functions
 
@@ -47,4 +47,4 @@ def composite_identity(f, g):
     >>> b1(4)                            # (4 + 1)^2 != 4^2 + 1
     False
     """
-    "*** YOUR CODE HERE ***"
+    return lambda x: f(g(x)) == g(f(x)) 
