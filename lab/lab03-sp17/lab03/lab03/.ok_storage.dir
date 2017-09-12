@@ -1,0 +1,6 @@
+'is_palindrome-attempts', (0, 71)
+'is_palindrome-last_attempt', (512, 74)
+'is_palindrome-correct', (1024, 70)
+'ten_pairs-attempts', (1536, 71)
+'ten_pairs-last_attempt', (2048, 74)
+'ten_pairs-correct', (2560, 70)

@@ -55,11 +55,14 @@ def partition_print(tree, partition = []):
 	"""
 	if is_leaf(tree):
 		if root(tree):
+
 			print(' + '.join(partition))
 	else:
 		left, right = branches(tree)
 		m = str(root(tree))
 		partition_print(left, partition + [m])
 		partition_print(right, partition)
+
+def print_tree()
 
 t = tree(3, [tree(1), tree(2, [tree(1), tree(1)])])
