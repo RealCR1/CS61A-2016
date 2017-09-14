@@ -46,10 +46,10 @@ def div_rat(x, y):
     >>> denom(c)
     20
     """
-    "*** YOUR CODE HERE ***"
+    return make_rat(numer(x) * denom(y), denom(x) * numer(y))
 
 def lt_rat(x, y):
-    """Returns True iff x < y as rational numbers; else False.
+    """Returns True if x < y as rational numbers; else False.
     >>> a, b = make_rat(6, 7), make_rat(12, 16)
     >>> lt_rat(a, b)
     False
@@ -65,7 +65,20 @@ def lt_rat(x, y):
     >>> lt_rat(a, a)
     False
     """
-    "*** YOUR CODE HERE ***"
+    #Idea come from others.Oops
+    first = numer(x) * denom(y)
+    last = numer(y) * denom(x)
+    return first < last
+    """
+    #It is wrong solution that typeError, tuple type and int type.
+    if sub_rat(x, y) < 0:
+        return True
+    else:
+        return False
+
+def sub_rat(x, y):
+    return make_rat(numer(x) * denom(y) - numer(y) * denom(x), denom(x) * denom(y))
+"""
 
 def has_seven(k):
     """Returns True if at least one of the digits of k is a 7, False otherwise.
@@ -83,7 +96,14 @@ def has_seven(k):
     >>> has_seven(7777)
     True
     """
-    "*** YOUR CODE HERE ***"
+    def count_seven(k):
+        if k % 10 == 7:
+            return True
+        elif k < 10:
+            return False
+        else:
+            return count_seven(k//10)
+    return count_seven(k)   
 
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
