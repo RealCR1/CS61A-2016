@@ -136,7 +136,25 @@ def pingpong(n):
     >>> check(HW_SOURCE_FILE, 'pingpong', ['Assign', 'AugAssign'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    def count_up_pp(c, k):
+        if k == n:
+            return c
+        elif has_seven(k):
+            return count_down_pp(c-1, k+1)
+        else:
+            return count_up_pp(c+1, k+1)
+
+    def count_down_pp(c, k):
+        if k == n:
+            return c
+        elif has_seven(k):
+            return count_up_pp(c+1, k+1)
+        else:
+            return count_down_pp(c-1, k+1)
+
+    return count_up_pp(1, 1)
+
+    
 
 # Linked List definition
 empty = 'empty'
