@@ -219,7 +219,17 @@ def change(lst, s, t):
     >>> print_link(newest)
     2 2 2
     """
-    "*** YOUR CODE HERE ***"
+    if lst == empty:
+        return lst
+    elif first(lst) == s:
+        return link(t, change(rest(lst), s, t))
+    else:
+        return link(first(lst), change(rest(lst), s, t))
+
+
+
+
+
 
 def insert_at_end(lst, elem):
     """Return a linked list that is the same as lst with elem added
@@ -235,7 +245,10 @@ def insert_at_end(lst, elem):
     >>> print_link(lst3)
     1 2 3
     """
-    "*** YOUR CODE HERE ***"
+    if lst == empty:
+        return link(elem, empty)
+    else:
+        return link(first(lst), insert_at_end(rest(lst), elem))
 
 def deep_len(lnk):
     """ Returns the deep length of a possibly deep linked list of integers.
@@ -247,7 +260,12 @@ def deep_len(lnk):
             link(3, empty)), link(link(4, empty), link(5, empty))))
     5
     """
-    "*** YOUR CODE HERE ***"
+    if lnk == empty:
+        return 0
+    elif type(first(lnk)) == int:
+        return 1 + deep_len(rest(lnk))
+    else:
+        return deep_len(first(lnk)) + deep_len(rest(lnk))
 
 def flatten(lst):
     """Returns a flattened version of lst.
@@ -261,7 +279,13 @@ def flatten(lst):
     >>> flatten(x)
     [1, 1, 1, 1, 1, 1]
     """
-    "*** YOUR CODE HERE ***"
+    if lst == []:
+        return []
+    elif type(lst[0]) == list:
+        return flatten(lst[0]) + flatten(lst[1:])
+    else:
+        return [lst[0]] + flatten(lst[1:])
+
 
 def riffle(deck):
     """Produces a single, perfect riffle shuffle of DECK, consisting of
