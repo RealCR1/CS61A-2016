@@ -10,3 +10,5 @@
 'flatten-attempts', (4608, 71)
 'flatten-last_attempt', (5120, 74)
 'flatten-correct', (5632, 70)
+'riffle-attempts', (6144, 71)
+'riffle-last_attempt', (6656, 74)
