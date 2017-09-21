@@ -296,8 +296,10 @@ def riffle(deck):
     >>> riffle(range(20))
     [0, 10, 1, 11, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19]
     """
-    "*** YOUR CODE HERE ***"
-    return _______
+    
+    return flatten([[deck[i], deck[i + len(deck)//2]] for i in range(len(deck)//2)])
+
+     
 
 def tree(label, branches=[]):
     for branch in branches:

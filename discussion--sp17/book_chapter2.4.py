@@ -65,3 +65,22 @@ def dictionary():
             setitem(key, value)
     return dispatch
 
+
+
+celsius = connector('Celsius')
+fahrenheit = connector('Fahrenheit')
+
+def converter(c, f):
+	"""
+	Connect c to f with constraints to convert from Celsius to Fahrenheit.
+	"""
+	u, v, x, y, w = [connector() for _ in range(5)]
+	multiplier(c, w, u)
+	multiplier(v, x, u)
+	adder(v, y, f)
+	constant(w, 9)
+	constant(x, 5)
+	constant(y, 32)
+
+
+converter(celsius, fahrenheit)
