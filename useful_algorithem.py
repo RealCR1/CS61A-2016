@@ -241,3 +241,23 @@ def converter(c, f):
     constant(w, 9)
     constant(x, 5)
     constant(y, 32)
+
+
+
+#Choose which to print
+def cake():
+    print('beets')
+    def pie():
+        print('candy')
+        return 'cake'
+    return pie
+
+a = cake()
+
+"""
+Program is executing as follow, call function cake() --> that begins to execute the suite of the
+body of the cake() function.So 'beets' is printed, but with return None.Then go to the return line.
+calling the pie() function.And then, 'candy' is also printed and with return 'cake'.
+so the assignment line 'a = cake()' is executed. Python terminal print the 'beets' but a is assigned
+to 'cake'.
+"""
