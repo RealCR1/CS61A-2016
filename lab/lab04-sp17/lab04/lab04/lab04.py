@@ -12,7 +12,12 @@ def if_this_not_that(i_list, this):
     4
     5
     """
-    "*** YOUR CODE HERE ***"
+
+    for element in i_list:
+        if element > this:
+            print(element)
+        else:
+            print('that')
 
 # Q4
 def coords(fn, seq, lower, upper):
@@ -22,7 +27,8 @@ def coords(fn, seq, lower, upper):
     >>> coords(fn, seq, 1, 9)
     [[-2, 4], [1, 1], [3, 9]]
     """
-    "*** YOUR CODE HERE ***"
+    
+    
     return ______
 
 # Q5
