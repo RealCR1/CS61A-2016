@@ -27,9 +27,7 @@ def coords(fn, seq, lower, upper):
     >>> coords(fn, seq, 1, 9)
     [[-2, 4], [1, 1], [3, 9]]
     """
-    
-    
-    return ______
+    return [[x, fn(x)] for x in seq if lower <= fn(x) <= upper]
 
 # Q5
 def link_to_list(linked_lst):

@@ -1,3 +1,6 @@
 'if_this_not_that-attempts', (0, 71)
 'if_this_not_that-last_attempt', (512, 74)
 'if_this_not_that-correct', (1024, 70)
+'coords-attempts', (1536, 71)
+'coords-last_attempt', (2048, 74)
+'coords-correct', (2560, 70)
