@@ -39,7 +39,17 @@ def link_to_list(linked_lst):
     >>> link_to_list(lst1)
     [1, 2, 3]
     """
-    "*** YOUR CODE HERE ***"
+    """
+    # It just return the same structure of the linked list, no the normal list.
+    if linked_lst == empty:
+        return []
+    else:
+        return [] + [element for element in linked_lst if element != 'empty']
+    """
+    if linked_lst == empty:
+        return []
+    else:
+        return [first(linked_lst)] + link_to_list(rest(linked_lst))
 
 # Q6
 def interleave(s0, s1):
@@ -55,7 +65,14 @@ def interleave(s0, s1):
     >>> print_link(interleave(odds, odds))
     1 1 3 3
     """
-    "*** YOUR CODE HERE ***"
+    if s0 == empty:
+        return s1
+    elif s1 == empty:
+        return s0
+    return link(first(s0),
+                link(first(s1),
+                    interleave(rest(s0),rest(s1))))
+
 
 # Linked List definition
 empty = 'empty'

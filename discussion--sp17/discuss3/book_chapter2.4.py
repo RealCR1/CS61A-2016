@@ -101,6 +101,7 @@ def connector(name = None):
             inform_all_except(source, 'new_val', constraints)
         else:
             if val != value:
+                print('conditionction detected')
                 print('Contradiction detected:', val, 'vs', value)
     
     def forget_value(source):
@@ -117,6 +118,8 @@ def connector(name = None):
                  'connect': lambda source: constraints.append(source)}
     
     return connector
+    
+
 
 
 def inform_all_except(source, message, constraints):
