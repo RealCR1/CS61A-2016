@@ -41,6 +41,12 @@ def group_by_first(pairs):
         if key not in keys:
             keys.append(key)
     return [[y for x, y in pairs if x == key] for key in keys]
+    """
+    刚开始时，Keys 序列是空的。随后让pairs序列进入，其中key,_ 分别代表第零个元素和第一个元素。for语句的判断条件是，第零个元素不能重复出现.
+    所以，keys = [1, 3, 2]。程序进入return 语句，在小的结构中，判断 x == key, 其中key 是大结构中的 'for key in keys',所以外层循环是 对key序列，
+    分别等于 1, 3, 2 时。for example, 当 key == 1 时，进行小循环，在pairs 序列中，寻找符合条件 'x == key'即为 'x == 1', 选出其中的 x = 1 
+    所以先会得出[2, 3, 2], 接下来进行 key == 3 的循环，找出 pairs 序列中的 [2, 1],最后是 key ==2。最终得出结论，[[2, 3, 2], [2, 1], [2]].
+    """
 
 
 def group_by_centroid(restaurants, centroids):
