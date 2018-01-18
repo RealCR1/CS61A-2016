@@ -10,7 +10,6 @@ from visualize import draw_map
 # Phase 2: Unsupervised Learning #
 ##################################
 
-
 def find_closest(location, centroids):
     """Return the centroid in centroids that is closest to location.
     If multiple centroids are equally close, return the first one.
@@ -23,7 +22,6 @@ def find_closest(location, centroids):
     return right_centroids
     
     # END Question 3
-
 
 def group_by_first(pairs):
     """Return a list of pairs that relates each unique key in the [key, value]
@@ -136,14 +134,18 @@ def best_predictor(user, restaurants, feature_fns):
     """Find the feature within feature_fns that gives the highest R^2 value
     for predicting ratings by the user; return a predictor using that feature.
 
-    Arguments:
+    Arguments:git
     user -- A user
     restaurants -- A list of restaurants
     feature_fns -- A sequence of functions that each takes a restaurant
     """
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 8
-    
+    other_key =[]
+    for right_func in feature_fns:
+        p, r = find_predictor(user, reviewed, right_func)
+        other_key[p] = r
+    return max(other_key, key = right_func.get)
     # END Question 8
 
 
@@ -157,10 +159,22 @@ def rate_all(user, restaurants, feature_fns):
     feature_fns -- A sequence of feature functions
     """
     predictor = best_predictor(user, ALL_RESTAURANTS, feature_fns)
-    reviewed = user_reviewed_restaurants(user, restaurants)
-    # BEGIN Question 9
-    "*** REPLACE THIS LINE ***"
+    reviewed = (user, restaurants)
+    
+    predictions = {}
+    for restaurant in restaurants:
+        rest_name = restaurant_name(restaurant)
+        if restaurant in reviewed:
+            rest_rating = user_rating(user, rest_name)
+            predictions[rest_name] = rest_rating
+        else:
+            predictions[rest_name] = predictor(restaurant)
+
+    return prediction
+
+
     # END Question 9
+
 
 
 def search(query, restaurants):
