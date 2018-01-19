@@ -55,6 +55,7 @@ def user_rating(user, restaurant_name):
     reviewed_by_user = user_reviews(user)
     user_review = reviewed_by_user[restaurant_name]
     return review_rating(user_review)
+    
 
 
 # Restaurants

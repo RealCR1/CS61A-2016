@@ -13,7 +13,7 @@ from visualize import draw_map
 def find_closest(location, centroids):
     """Return the centroid in centroids that is closest to location.
     If multiple centroids are equally close, return the first one.
-
+    
     >>> find_closest([3.0, 4.0], [[0.0, 0.0], [2.0, 3.0], [4.0, 3.0], [5.0, 5.0]])
     [2.0, 3.0]
     """
@@ -22,6 +22,7 @@ def find_closest(location, centroids):
     return right_centroids
     
     # END Question 3
+
 
 def group_by_first(pairs):
     """Return a list of pairs that relates each unique key in the [key, value]
