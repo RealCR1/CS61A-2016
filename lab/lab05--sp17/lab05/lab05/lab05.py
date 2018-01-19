@@ -51,7 +51,7 @@ def replace_all(d, x, y):
     for key in d:
         if d[key] == x:
             d[key] = y
-            
+
 
 
 
@@ -81,3 +81,10 @@ def count_calls(f):
     2
     """
     "*** YOUR CODE HERE ***"
+    calls = 0
+    def counted(*args):
+        nonlocal calls
+        calls = calls + 1
+        return f(*args)
+    return counted, lambda: calls
+
