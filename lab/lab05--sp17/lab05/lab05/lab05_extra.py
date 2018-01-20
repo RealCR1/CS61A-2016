@@ -11,6 +11,26 @@ def filter(pred, lst):
     [2, 0]
     """
     "*** YOUR CODE HERE ***"
+    """
+    for i in range(len(lst) - 1):
+        if not pred(lst[i]):
+            lst.pop(i)
+
+
+    #Error occured when you have poped the first element in the list
+    and then in for loop, i += 1 which will start with the first element in the new list.
+    It will left behind with the second element.
+    """
+
+    #Going from the end of the list.If you have poped the false element,
+    #you will at least check the former element with no left behind.
+
+    i = len(lst) - 1
+    while i >= 0:
+        if not pred(lst[i]):
+            lst.pop(i)
+        i = i - 1
+
 
 # Q7
 def reverse(lst):
@@ -25,7 +45,15 @@ def reverse(lst):
     >>> odd_list
     [-8, 72, 42]
     """
+    
     "*** YOUR CODE HERE ***"
+    mid_element = len(lst) // 2
+    last = len(lst) - 1
+
+    for i in range(mid_element):
+        lst[i], lst[last - i] = lst[last - i], lst[i]
+    
+
 
 # Q8
 def counter(message):
@@ -47,6 +75,13 @@ def counter(message):
     """
     word_list = message.split() # .split() returns a list of the words in the string. Try printing it!
     "*** YOUR CODE HERE ***"
+    dic = {}
+    for word in word_list:
+        if word in dic:
+            dic[word] += 1
+        else:
+            dic[word] = 1
+    return dic
 
 # Q9
 def make_fib():
