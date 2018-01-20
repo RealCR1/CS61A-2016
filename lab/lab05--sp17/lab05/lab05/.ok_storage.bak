@@ -1,2 +1,3 @@
 'reverse-correct', (0, 70)
 'counter-correct', (512, 70)
+'make_fib-correct', (1024, 70)

@@ -104,3 +104,11 @@ def make_fib():
     12
     """
     "*** YOUR CODE HERE ***"
+    m, n = 0, 1
+    def fib():
+        nonlocal m, n
+        results = m
+        m, n = n, m + n
+        return results
+    return fib
+    
