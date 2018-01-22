@@ -24,7 +24,19 @@ def make_counter():
     >>> c('b') + c2('b')
     5
     """
-    "*** YOUR CODE HERE ***"
+    dic = {}
+    def counter(str):
+        nonlocal dic
+        dic[str] = dic.get(str, 0) + 1
+        return dic[str]
+    return counter
+
+
+
+    
+
+
+
 
 def make_fib():
     """Returns a function that returns the next Fibonacci number
@@ -45,7 +57,25 @@ def make_fib():
     >>> fib() + sum([fib2() for _ in range(5)])
     12
     """
-    "*** YOUR CODE HERE ***"
+    
+    count = 0
+    predecent = 0
+    succedent = 1
+
+    def fib_num():
+        nonlocal predecent, succedent, count 
+        if count == 0:
+            count += 1
+            return predecent
+        elif count == 1:
+            count += 1
+            return succedent
+        else:
+            predecent, succedent = succedent, succedent + predecent
+            return succedent
+    return fib_num
+
+
 
 ###################
 # Towers of Hanoi #
@@ -82,12 +112,21 @@ def move_stack(n, start, end):
     Move the top disk from rod 2 to rod 3
     Move the top disk from rod 1 to rod 3
     """
-    assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
-    "*** YOUR CODE HERE ***"
+    assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end, and you should change your way."
+    if n == 1:
+        print_move(start, end)
+    else:
+        new_end = 6 - (start + end)  #I copied some awesome ways to solve this problem.
+        move_stack(n-1, start, new_end)
+        print_move(start, end)
+        move_stack(n-1, new_end, end)
+#In one move, you just could move only one stack.
+
 
 ###########
 # Mobiles #
 ###########
+
 
 def tree(label, branches=[]):
     for branch in branches:
@@ -135,14 +174,20 @@ def weight(size):
     """Construct a weight of some size."""
     assert size > 0
     "*** YOUR CODE HERE ***"
+    return tree(size)
+
 
 def size(w):
     """Select the size of a weight."""
     "*** YOUR CODE HERE ***"
+    return label(w)
+
 
 def is_weight(w):
     """Whether w is a weight, not a mobile."""
     "*** YOUR CODE HERE ***"
+    return is_leaf(w)
+
 
 def examples():
     t = mobile(side(1, weight(2)),
@@ -187,6 +232,18 @@ def balanced(m):
     False
     """
     "*** YOUR CODE HERE ***"
+    if is_weight(m):
+        return True
+    else:
+        left_index, right_index = sides(m)[0], sides(m)[1]
+        left_branch = end(left_index)
+        right_branch = end(right_index)
+        left_balance = length(left_index) * total_weight(left_branch)
+        right_balance = length(right_index) * total_weight(right_branch)
+        return balanced(left_branch) and balanced(right_branch) and left_balance == right_balance
+        
+
+
 
 def with_totals(m):
     """Return a mobile with total weights stored as the label of each mobile.

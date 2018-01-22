@@ -1,0 +1,4 @@
+'make_fib-correct', (0, 70)
+'move_stack-correct', (512, 70)
+'total_weight-correct', (1024, 70)
+'balanced-correct', (1536, 70)
