@@ -241,7 +241,7 @@ def balanced(m):
         left_balance = length(left_index) * total_weight(left_branch)
         right_balance = length(right_index) * total_weight(right_branch)
         return balanced(left_branch) and balanced(right_branch) and left_balance == right_balance
-        
+
 
 
 
@@ -261,15 +261,29 @@ def with_totals(m):
     [None, None]
     """
     "*** YOUR CODE HERE ***"
+    if is_weight(m):
+        return m
+    else:
+        temp_end = [with_totals(end(x)) for x in sides(m)]
+        sum_labels = sum([label(x) for x in temp_end])
+        interleaved = zip(sides(m), temp_end)
+        return tree(sum_labels, [side(length(x), i) for x, i in interleaved])
+
+
+
+
+
+    
 
 #############
 # Intervals #
 #############
 
 
+#I couldn't solve this problem.
+
 class interval:
     """A range of floating-point values.
-
     >>> a = interval(1, 4)
     >>> a
     interval(1, 4)
@@ -314,7 +328,72 @@ class interval:
         return interval(low, high)
 
     "*** YOUR CODE HERE ***"
+    def __init__(self, low, high):
+        if low<high:
+            self._low = low
+            self._high = high
+        else:
+            self._low = high
+            self._high = low
 
+    def __repr__(self):
+        return "interval({}, {})".format(self._low, self._high)
+
+    def __str__(self):
+        return "({}, {})".format(self._low, self._high)
+
+    def low(self):
+        return self._low
+
+    def high(self):
+        return self._high
+
+    def width(self):
+        self._width = self._high - self._low
+        return self._width
+
+    def __add__(self, other):
+        #we do not need the loop through interval because we are already
+        #considering extreme values. All intermediate values fall between
+        #the extreme values.
+        total_low, total_high = self._low + other.low(), self._high + other.high()
+        return self.make_interval(total_low, total_high)
+
+    def __sub__(self, other):
+        #we do not need the loop through interval because we are already
+        #considering extreme values. All intermediate values fall between
+        #the extreme values.
+        low1, low2 = self._low - other.low() , self._low - other.high()
+        high1, high2 = self._high - other.low() , self._high - other.high()
+        final_low = min(low1, low2, high1, high2)
+        final_high = max(low1, low2, high1, high2)
+        return self.make_interval(final_low, final_high)
+
+    def __mul__(self, other):
+        #we do not need the loop through interval because we are already
+        #considering extreme values. All intermediate values fall between
+        #the extreme values.
+        low1, low2 = self._low * other.low() , self._low * other.high()
+        high1, high2 = self._high * other.low() , self._high * other.high()
+        final_low = min(low1, low2, high1, high2)
+        final_high = max(low1, low2, high1, high2)
+        return self.make_interval(final_low, final_high)
+
+    def __truediv__(self, other):
+        #here we need to consider a range because there is a possibility
+        #of division of zero
+
+        if 0 in range(other.low(), other.high()+1):
+            raise ValueError
+        else:
+            low1, low2 = self._low / other.low() , self._low / other.high()
+            high1, high2 = self._high / other.low() , self._high / other.high()
+            final_low = min(low1, low2, high1, high2)
+            final_high = max(low1, low2, high1, high2)
+            return self.make_interval(final_low, final_high)
+
+    def __neg__(self):
+        return self.make_interval((-1*self._low),(-1*self._high))
 
 
 class centered_interval(interval):
@@ -338,10 +417,25 @@ class centered_interval(interval):
         centered_interval(-1.0, 2.0)
         """
         "*** YOUR CODE HERE ***"
+        #self = c +- tol
+        if tol:
+            self._tol = tol
+            self._c = c
+            if (c - tol) < (c + tol):
+                self._low = c - tol
+                self._high = c + tol
+            else:
+                self._low = c + tol
+                self._high = c - tol
+        else:
+            self._tol = (c.high() - c.low())/2
+            self._c = c.low() + self._tol
+
 
     def make_interval(self, low, high):
         """Returns a centered interval whose bounds are LOW and HIGH."""
         "*** YOUR CODE HERE ***"
+        return centered_interval(interval(low, high))
 
     def center(self):
         """The center of SELF.
@@ -351,6 +445,7 @@ class centered_interval(interval):
         5.0
         """
         "*** YOUR CODE HERE ***"
+        return float(self._c)
 
     def tolerance(self):
         """The tolerance of SELF.
@@ -360,6 +455,7 @@ class centered_interval(interval):
         1.0
         """
         "*** YOUR CODE HERE ***"
+        return float(self._tol)
 
     def __str__(self):
         """A string representation of SELF as center +/- tolerance.
@@ -369,6 +465,7 @@ class centered_interval(interval):
         5.0 +/- 1.0
         """
         "*** YOUR CODE HERE ***"
+        return "{} +/- {}".format(float(self._c), float(self._tol))
 
     def __repr__(self):
         """A string represention of a Python expression that will produce SELF.
@@ -376,6 +473,7 @@ class centered_interval(interval):
         centered_interval(5.0, 1.0)
         """
         "*** YOUR CODE HERE ***"
+        return "centered_interval({}, {})".format(self._c/1, self._tol/1)
 
 
 ###################
