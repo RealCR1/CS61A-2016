@@ -1,6 +1,7 @@
 # A "simple" adventure game.
 
 class Player(object):
+    backpack = []
     def __init__(self, name, place):
         """Create a player object."""
         self.name = name
@@ -35,7 +36,9 @@ class Player(object):
         destination_place = self.place.get_neighbor(location)
         if destination_place.locked:
             print(destination_place.name, 'is locked! Go look for a key to unlock it')
-        "*** YOUR CODE HERE ***"
+        else:
+            self.place = destination_place
+        print('You are at', self.place.name)
 
 
     def talk_to(self, person):
@@ -53,7 +56,10 @@ class Player(object):
         """
         if type(person) != str:
             print('Person has to be a string.')
-        "*** YOUR CODE HERE ***"
+        elif person not in self.place.characters:
+            print(person, 'is not here.')
+        else:
+            print(person, 'says:', self.place.characters[person].talk())
 
 
     def take(self, thing):
@@ -79,7 +85,13 @@ class Player(object):
         """
         if type(thing) != str:
             print('Thing should be a string.')
-        "*** YOUR CODE HERE ***"
+        elif thing not in self.place.things:
+            print(thing, 'is not here.')
+        else:
+            taken = self.place.take(thing)
+            print(self.name, 'takes the', taken.name)
+            self.backpack.append(taken)
+
 
     def check_backpack(self):
         """Print each item with its description and return a list of item names.
@@ -153,6 +165,12 @@ class Player(object):
                 key = item
         "*** YOUR CODE HERE ***"
 
+        if not key:
+            print(place, "can't be unlocked without a key!")
+        else:
+            place_to_unlock = self.place.get_neighbor(place)
+            key.use(place_to_unlock)
+
 
 class Character(object):
     def __init__(self, name, message):
@@ -172,6 +190,15 @@ class Thing(object):
         print("You can't use a {0} here".format(self.name))
 
 """ Implement Key here! """
+
+class Key(Thing):
+    def use(self, place):
+        if place.locked:
+            place.locked = False
+            print(place.name, 'is now unlocked!')
+        else:
+            print(place.name, 'is already unlocked!')
+
 
 class Treasure(Thing):
     def __init__(self, name, description, value, weight):
