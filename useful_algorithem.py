@@ -261,3 +261,67 @@ calling the pie() function.And then, 'candy' is also printed and with return 'ca
 so the assignment line 'a = cake()' is executed. Python terminal print the 'beets' but a is assigned
 to 'cake'.
 """
+
+
+
+
+######################
+##Fibnonacci Numbers##
+######################
+# A way to measure the efficency of this algorithm.
+
+
+def fib(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+
+"""
+Using tree-recursive function.
+This way is so inefficient that fib(3) is duplicated.
+"""
+# A specific way to measure times of function call.
+
+def count(f):
+    def counted(*args):
+        counted.call_count += 1
+        return f(*args)
+    counted.call_count = 0
+    return counted
+
+"""
+Count the active frames which simultaneously active
+during the course of computation.
+"""
+
+def count_frames(f):
+    def counted(*args):
+        counted.open_count += 1
+        counted.max_count = max(counted.max_count, counted.open_count)
+        result = f(*args)
+        counted.open_count -= 1
+        return result
+    counted.open_count = 0
+    counted.max_count = 0
+    return counted
+
+#Memoization
+"""
+This way will store the last computation value 
+decrease the computation which had been calculated.
+"""
+
+def memo(f):
+    cache = {}
+    def memoized(n):
+        if n not in cache:
+            cache[n] = f(n)
+        return cache[n]
+    return memoized
+
+#fib function is actually only called once for each unique input for fib.
+
+
