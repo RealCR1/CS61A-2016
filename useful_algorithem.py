@@ -325,3 +325,23 @@ def memo(f):
 #fib function is actually only called once for each unique input for fib.
 
 
+################################
+##Make the Link class iterable##
+################################
+
+class Link:
+    empty = ()
+    def __init__(self, first, rest = empty):
+        self.first = first
+        self.rest = rest
+    def __iter__(self):
+        x = self
+        while x != empty:
+            yield x.first
+            x = x.rest
+        """
+        while self != empty:
+            yield self.first
+            self = self.rest
+        """
+

@@ -28,7 +28,28 @@ class IteratorCombiner(object):
 		return self
 		
 
+def perfect_squares():
+	"""
+	x = perfect_squares()
+	>>>next(x)
+	1
+	>>>next(x)
+	4
+	"""
+	current = 1
+	while True:
+		yield current ** 2
+		current += 1
 
-
-
+class Link:
+	empty = ()
+	def __init__(self, first, rest = empty):
+		self.first = first
+		self.rest = rest
+	def __iter__(self):
+		x = self
+		while x != empty:
+			yield x.first
+			x = x.rest
+			
 
