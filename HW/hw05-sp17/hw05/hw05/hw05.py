@@ -447,6 +447,7 @@ def merge(s0, s1):
                 e1 = next(i1, None)
             else:
                 e0, e1 = next(i0, None), next(i1, None)
+                
 
 def zip(*iterables):
     """
