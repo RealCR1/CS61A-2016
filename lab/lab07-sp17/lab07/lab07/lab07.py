@@ -18,6 +18,17 @@ class Str:
     ...     print(char)
     """
     "*** YOUR CODE HERE ***"
+    def __init__(self, string):
+        self.string = string
+        self.i = -1
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.i += 1
+        if self.i >= len(self.string):
+            raise StopIteration
+        return self.string[self.i]
 
 ##############
 # Generators #
@@ -38,6 +49,8 @@ def scale(s, k):
     [2, 4, 6, 8, 10]
     """
     "*** YOUR CODE HERE ***"
+    for elements in s:
+        yield elements * k
 
 # Q6
 def countdown(n):
@@ -59,7 +72,9 @@ def countdown(n):
     1
     0
     """
-    "*** YOUR CODE HERE ***"
+    while n >= 0:
+        yield n
+        n -= 1
 
 class Countdown:
     """
@@ -84,7 +99,11 @@ class Countdown:
         self.cur = cur
 
     def __next__(self):
-        "*** YOUR CODE HERE ***"
+        if self.cur < 0:
+            raise StopIteration
+        self.cur -= 1
+        return self.cur + 1
+        
 
     def __iter__(self):
         """So that we can use this iterator as an iterable."""
@@ -104,7 +123,18 @@ def hailstone(n):
     2
     1
     """
-    "*** YOUR CODE HERE ***"
+    i = n
+    while i > 1:
+        yield i
+        if i % 2 == 0:
+            i = i//2
+        else:
+            i = i*3 + 1
+    yield i
+    
+
+
+
 
 # the naturals generator is used for testing scale and merge functions
 def naturals():
