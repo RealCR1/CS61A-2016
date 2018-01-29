@@ -19,26 +19,20 @@ test = {
           >>> odd_iter1 = iter(odds)
           >>> odd_iter2 = iter(odds)
           >>> next(odd_iter1)
-          030bca9dd0d55198e3fa5a2ab185b285
-          # locked
+          1
           >>> next(odd_iter1)
-          9a023de211dac9bf8558350f5fa3bdca
-          # locked
+          3
           >>> next(odd_iter1)
-          b93035e430af620ab1eedc5adaea0a82
-          # locked
+          5
           >>> next(odd_iter2)
-          54668fb96734d9b52a588e4f9ab6ed24
-          # locked
+          7
           >>> next(odd_iter1)
-          0d66d07b30bc2b1b6722bd627905704c
-          # locked
+          9
           >>> next(odd_iter2)
-          44567d7ece823e5a44bf86d110909d16
-          # locked
+          11
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
@@ -55,23 +49,18 @@ test = {
           >>> even_iter1 = iter(evens)
           >>> even_iter2 = iter(evens)
           >>> next(even_iter1)
-          67a37433345d12b97afe4885b1fa6019
-          # locked
+          0
           >>> next(even_iter1)
-          c9aea858aa12d15d170a9fd7596d70b1
-          # locked
+          2
           >>> next(even_iter1)
-          f2991d685f624ad59b79213e20800653
-          # locked
+          4
           >>> next(even_iter2)
-          67a37433345d12b97afe4885b1fa6019
-          # locked
+          0
           >>> next(even_iter2)
-          c9aea858aa12d15d170a9fd7596d70b1
-          # locked
+          2
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
@@ -87,23 +76,18 @@ test = {
           >>> doubleI = DoubleIterator()
           >>> dIter = iter(doubleI)
           >>> next(doubleI)
-          c9aea858aa12d15d170a9fd7596d70b1
-          # locked
+          2
           >>> next(doubleI)
-          f2991d685f624ad59b79213e20800653
-          # locked
+          4
           >>> next(dIter)
-          c9aea858aa12d15d170a9fd7596d70b1
-          # locked
+          2
           >>> next(dIter)
-          f2991d685f624ad59b79213e20800653
-          # locked
+          4
           >>> next(doubleI)
-          2ce69256b3a4325ad04f8cf5c5dd6244
-          # locked
+          8
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
@@ -119,23 +103,18 @@ test = {
           >>> threeI = ThreeIterator()
           >>> tIter = iter(threeI)
           >>> next(threeI)
-          700368183fe24919898aaeca9b976fbd
-          # locked
+          10
           >>> next(threeI)
-          54668fb96734d9b52a588e4f9ab6ed24
-          # locked
+          7
           >>> next(tIter)
-          f2991d685f624ad59b79213e20800653
-          # locked
+          4
           >>> next(tIter)
-          030bca9dd0d55198e3fa5a2ab185b285
-          # locked
+          1
           >>> next(threeI)
-          c68f0f58dc96a43cc84e484d0ec63e61
-          # locked
+          -2
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         }
       ],
       'scored': False,
