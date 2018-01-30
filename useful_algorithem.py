@@ -345,3 +345,193 @@ class Link:
             self = self.rest
         """
 
+
+
+
+#######################
+##Recursive Objects#####
+########################
+
+class Link:
+    empty = ()
+    def __init__(self, first, rest = empty):
+        assert rest is Link.empty or isinstance(rest, Link)
+        self.first = first
+        self.rest = rest
+
+    def __getitem__(self, i):
+        if i == 0:
+            return self.first
+
+        else:
+            return self.rest[i-1]
+
+    def __len__(self):
+        return 1 + len(self.rest)
+
+
+def extend_link(s, t):
+    if s is Link.empty:
+        return t
+    else:
+        return Link(s.first, extend_link(s.rest, t))
+
+def link_expressions(s):
+    """
+    Return a string that would evaluate to s.
+    """
+    if s.rest is Link.empty:
+        rest = ''
+    else:
+        rest = ',' + link_expressions(s.rest)
+    return 'Link({0}{1})'.format(s.first, rest)
+
+def map_link(f, s):
+    """
+    Using function f to linked list s.
+    """
+    if s is Link.empty:
+        return s
+    else:
+        return Link(f(s.first), map_link(f, s.rest))
+
+
+def filter_link(f, s):
+    """
+    Filtering the linked list in the condition of function f.
+    """
+    
+    if s is Link.empty:
+        return s
+    else:
+        filtered = filter_link(f, s.rest)
+        if f(s.first):
+            return Link(s.first, filtered)
+        else:
+            return filtered
+
+
+def join_link(s, separator):
+    if s is Link.empty:
+        return ""
+
+    elif s.rest is Link.empty:
+        return str(s.first)
+    else:
+        return str(s.first) + separator + join_link(s.rest, separator)
+
+
+def partitions(n, m):
+    """
+    Return a linked list of partitions of n using parts of up
+    to m. Each partition is represented as a linked list.
+    """
+    if n == 0:
+        return Link(Link.empty)
+    elif n < 0 or m == 0:
+        return Link.empty
+    else:
+        using_m = partitions(n-m, m)
+        with_m = map_link(lambda s: Link(m, s), using_m)
+        without_m = partitions(n, m-1)
+        return with_m + without_m
+
+def print_partitions(n, m):
+    """
+    >>> print_partitions(6, 4)
+    4 + 2
+    4 + 1 + 1
+    3 + 3
+    3 + 2 + 1
+    3 + 1 + 1 + 1
+    2 + 2 + 2
+    2 + 2 + 1 + 1
+    2 + 1 + 1 + 1 + 1
+    1 + 1 + 1 + 1 + 1 + 1
+    """
+    lists = partitions(n, m)
+    strings = map_link(lambda s: join_link(s, " + "), lists)
+    print(join_link(strings, "\n"))
+
+
+
+
+
+
+
+
+
+
+
+##################
+##Chapter 1#######
+##算法时间复杂度###
+#################
+
+
+
+def sqrt(x):
+    y = 1.0
+    while (y * y - x) > 1e-6:
+        y = (y + x/y) / 2
+    return y
+
+
+
+    
+
+def fib(n):
+    """
+    需要持续地递归，时间代价大概为 fib(n-1) + fib(n-2).
+    所以，lim T = 1.618 ^ n, 所以当n趋向于无穷大时，T很大
+    """
+
+    if n < 2:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+
+
+def fib(n):
+    """
+    由于循环前的工作只用做一次，所以总的工作量 为  n 的线性倍数。
+    """
+    f1 = f2 = 1
+    for k in range(1, n):
+        f1, f2 = f2, f1 + f2
+    return f2
+
+
+#计算两个模式相同（n*n)的矩阵(m1, m2)相乘的值,存入 (n*n)的矩阵m.
+def matrix_mul(m1, m2):
+    """
+    计算其 复杂度时， 外面两侧循环分别为O(n),最内侧循环为(O(1) + O(n)*O(1) + O(1))化简得O(n)
+    最终为O(n^3).
+    """
+    for i in range(n):
+        for j in range(n):
+            x = 0.0
+            for k in range(n):
+                x = x + m1[i][k] * m2[k][j]
+            m[i][j] = x
+    return m 
+
+
+#求n阶矩阵的行列式的值
+#方法一： 高斯消元法（将原来的矩阵(n*n)变成一个上三角矩阵，最后对于对角线的元素相乘得结果）
+
+for i in range(n-1):
+    """
+    You can use the Numpy API, function 'tril' and 'triu'. 
+    We will get lower triangle matrix and upper triangle matrix.
+    """
+
+
+
+
+##################
+###Chapter 2######
+##################
+
+
+#表示一个有理数
