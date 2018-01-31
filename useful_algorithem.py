@@ -534,4 +534,55 @@ for i in range(n-1):
 ##################
 
 
-#表示一个有理数
+lass RationalPrevious:
+    def __init__(self, num, den = 1):
+        self.num = num
+        self.den = den
+
+    def plus(self, another):
+        den = self.den * another.den
+        num = self.num * another.den + self.den * another.num
+        return Rational(num, den)
+
+    def print(self):
+        print(str(self.num)+"/"+str(self.den))
+
+
+class Rational:
+    @staticmethod
+    def _gcd(m, n):
+        if n == 0:
+            m, n = n, m
+        while m != 0:
+            m, n = n%m, m
+        return n
+
+    def __init__(self, num, den = 1):
+        if not isinstance(num, int) or not isinstance(den, int):
+            raise TypeError
+        if den == 0:
+            raise ZeroDivisionError
+        sign = 1
+        if num < 0:
+            num, sign = -num, -sign
+        if den < 0:
+            den, sign = -den, -sign
+        g = Rational._gcd(num, den)
+        self.num = sign * (num//g)
+        self.den = den // g
+
+
+    def __add__(self, another):
+        den = self.den * another.den()
+        num = (self.num * another.den() + self.den() * another.num())
+        return Rational(num, den)
+
+    def __mul__(self, another):
+        return Rational(self.num * another.num(), self.den * another.den())
+
+    def __floordiv__(self, another):
+        if another.num() == 0:
+            raise ZeroDivisionError
+        return Rational(self.num * another.den(), self.den * another.num())
+
+
