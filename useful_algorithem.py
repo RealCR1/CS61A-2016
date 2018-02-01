@@ -178,6 +178,7 @@ def connector(name = None):
             if val != value:
                 print('conditionction detected')
                 print('Contradiction detected:', val, 'vs', value)
+                
     
     def forget_value(source):
         nonlocal informant
@@ -586,3 +587,8 @@ class Rational:
         return Rational(self.num * another.den(), self.den * another.num())
 
 
+#######################
+####Chapter 3##########
+#######################
+
+#线性表
