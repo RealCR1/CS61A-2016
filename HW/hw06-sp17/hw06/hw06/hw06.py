@@ -30,6 +30,18 @@ def avoid_keyerror(dictionary, key):
         return dictionary[key]
 
 
+    """
+    Another solution for this problem.
+    """
+    try:
+        return dictionary[key]
+    except KeyError:
+        print('Avoid Exception')
+        dictionary[key] = 'no value'
+        return dictionary[key]
+
+
+
 # List replacement
 
 class Link:
@@ -62,16 +74,25 @@ class Link:
             p, other = p.rest, other.rest
         return p is Link.empty and other is Link.empty
 
+
 def lst_replace_first_obvious(L, target, replacement):
-    """Return the result of replacing the first occurrence of TARGET
+    """
+    Return the result of replacing the first occurrence of TARGET
     in linked-list L with REPLACEMENT.  Returns the original L unchanged
-    if TARGET does not occur.  Non-destructive."""
+    if TARGET does not occur.  Non-destructive.
+    """
     if L is Link.empty:
         return Link.empty
     elif L.first == target:
         return Link(replacement, L.rest)
     else:
         return Link(L.first, lst_replace_first_obvious(L.rest, target, replacement))
+
+    """
+    The method lst_replace_first_obvious() will create a new list when target isn't appear.
+    So we will try to solve it in the next method.
+    """
+
 
 def lst_replace_first(L, target, replacement):
     """Return the result of replacing the first occurrence of TARGET
@@ -89,10 +110,22 @@ def lst_replace_first(L, target, replacement):
     True
     """
 
-    def lst_replace_first_exception(L, target, replacement):
+
+    def lst_replace_first(L, target, replacement):
         """Variant of lst_replace_first_obvious that raises exception if
         TARGET not present in L."""
         "*** YOUR CODE HERE ***"
+        if L is Link.empty:
+            raise IndexError
+        elif L.first == target:
+            return  Link(replacement, L.rest)
+        else:
+            return Link(L.first, lst_replace_first(L.rest, target, replacement))
+    
+    try:
+        return lst_replace_first(L, target, replacement)
+    except IndexError:
+        return L
 
     # Replace with apppropriate try block.
 
