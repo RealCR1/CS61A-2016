@@ -26,8 +26,6 @@ class Place(object):
         # Phase 1: Add an entrance to the exit
         # BEGIN Problem 2
         "*** REPLACE THIS LINE ***"
-        if self.exit:
-            (self.exit).entrance = self
         # END Problem 2
 
     def add_insect(self, insect):
@@ -82,7 +80,7 @@ class Place(object):
     def __str__(self):
         return self.name
 
-#The attribute of Insect Class is damage only.
+
 class Insect(object):
     """An Insect, the base class of Ant and Bee, has armor and a Place."""
 
@@ -100,7 +98,7 @@ class Insect(object):
 
         >>> test_insect = Insect(5)
         >>> test_insect.reduce_armor(2)
-        >>> test_insect.armorfa
+        >>> test_insect.armor
         3
         """
         self.armor -= amount
@@ -170,9 +168,8 @@ class HarvesterAnt(Ant):
 
     name = 'Harvester'
     implemented = True
-    
-    
-
+    food_cost = 2
+    armor = 1
 
     def action(self, colony):
         """Produce 1 additional food for the COLONY.
@@ -180,7 +177,6 @@ class HarvesterAnt(Ant):
         colony -- The AntColony, used to access game state information.
         """
         # BEGIN Problem 1
-        
         colony.food += 1
         # END Problem 1
 
@@ -693,7 +689,7 @@ def interactive_strategy(colony):
     interact(msg)
 
 def start_with_strategy(args, strategy):
-    """Reads command-line arguments and starts a game with thosoptions."""
+    """Reads command-line arguments and starts a game with those options."""
     import argparse
     parser = argparse.ArgumentParser(description="Play Ants vs. SomeBees")
     parser.add_argument('-d', type=str, metavar='DIFFICULTY',

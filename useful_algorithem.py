@@ -591,4 +591,28 @@ class Rational:
 ####Chapter 3##########
 #######################
 
-#线性表
+#Replacement in Linked list
+class Link:
+    empty = ()
+    def __init__(self, first, rest = empty):
+        assert rest is Link.empty or isinstance(rest, Link)
+        self.first = first
+        self.rest = rest
+
+    def __repr__(self):
+        if self.rest is Link.empty:
+            return 'Link({})'.format(self.first)
+        else:
+            return 'Link({}, {})'.format(self.first, repr(self.rest))
+
+    def __eq__(self, other):
+        """
+        Judge two linked list is equal or not.
+        """
+        p = self
+        while p is not Link.empty and other is not Link.empty:
+            if p.first != other.first:
+                return False
+            p, other = p.rest, othre.rest
+        return p is Link.empty and other is Link.empty
+
