@@ -308,4 +308,27 @@ def calc_apply(operator, args):
             raise TypeError(operator + ' is an unknown operator')
 
 
+################
+####3.5#########
+###############
 
+def scheme_eval(expr, env):
+	"""
+	Envaluate scheme expresson expr in environment env.
+	"""
+	if scheme_symbolp(expr):
+		return env[expr]
+	elif scheme_atomp(expr):
+		return expr
+	first, rest = expr.first, expr.second
+	if first == "lambda":
+		return do_lambda_form(rest, env):
+	elif first == 'define':
+		do_define_form(rest, env)
+		return None
+	else:
+		procedure = scheme_eval(first, env)
+		args = rest.map(lambda operand: scheme_eval(operand, env))
+		return scheme_apply(procedure, args, env)
+
+		
