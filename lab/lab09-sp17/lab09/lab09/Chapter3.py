@@ -68,6 +68,8 @@ class Pair(object):
             y = y.second
         return y.first
 
+
+
     def map(self, fn):
         """Return a Scheme list after mapping Python function FN to SELF."""
         mapped = fn(self.first)
@@ -75,6 +77,8 @@ class Pair(object):
             return Pair(mapped, self.second.map(fn))
         else:
             raise TypeError("ill-formed list")
+
+
 
 class nil(object):
     """The empty list"""
@@ -97,6 +101,8 @@ class nil(object):
         return self
 
 nil = nil() # Assignment hides the nil class; there is only one instance
+
+
 
 
 # Scheme list parser, without quotation or dotted lists.
@@ -331,4 +337,4 @@ def scheme_eval(expr, env):
 		args = rest.map(lambda operand: scheme_eval(operand, env))
 		return scheme_apply(procedure, args, env)
 
-		
+
