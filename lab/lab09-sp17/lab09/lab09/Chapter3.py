@@ -338,3 +338,6 @@ def scheme_eval(expr, env):
 		return scheme_apply(procedure, args, env)
 
 
+def factorial(n):
+	return 1 if n == 1 else n * factorial(n-1)
+	
