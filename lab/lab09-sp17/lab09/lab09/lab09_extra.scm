@@ -4,12 +4,18 @@
 (define (square x) (* x x))
 
 (define (pow b n)
-  'YOUR-CODE-HERE
+  (cond
+  	((n%2) ? 0) square b**(n%2)
+    (else (* b square b**(n%2))
 )
 
 ; Q6
 (define lst
-  'YOUR-CODE-HERE
+  (cons (cons 1 '())
+  		(cons 2
+  			(cons (cons 3 4)
+  				  (cons 5 '()))
+  			))
 )
 
 ; Q7

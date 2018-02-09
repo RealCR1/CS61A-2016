@@ -1,44 +1,37 @@
 test = {
-  'name': 'pow',
+  'name': 'sign',
   'points': 1,
   'suites': [
     {
       'cases': [
         {
           'code': r"""
-          scm> (pow 4 0)
+          scm> (sign -42)
+          -1
+          """,
+          'hidden': False,
+          'locked': False
+        },
+        {
+          'code': r"""
+          scm> (sign 0)
+          0
+          """,
+          'hidden': False,
+          'locked': False
+        },
+        {
+          'code': r"""
+          scm> (sign 42)
           1
-          scm> (pow 10 3)
-          1000
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          scm> (pow 2 3)
-          8
-          scm> (pow 2 5)
-          32
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          scm> (pow 3 3)
-          27
-          scm> (pow 3 4)
-          81
           """,
           'hidden': False,
           'locked': False
         }
       ],
-      'scored': False,
+      'scored': True,
       'setup': r"""
-      scm> (load 'lab09)
-      scm> (load 'lab09_extra)
+      scm> (load 'hw07)
       """,
       'teardown': '',
       'type': 'scheme'

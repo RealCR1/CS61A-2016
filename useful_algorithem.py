@@ -377,6 +377,7 @@ def extend_link(s, t):
     else:
         return Link(s.first, extend_link(s.rest, t))
 
+
 def link_expressions(s):
     """
     Return a string that would evaluate to s.
@@ -386,6 +387,7 @@ def link_expressions(s):
     else:
         rest = ',' + link_expressions(s.rest)
     return 'Link({0}{1})'.format(s.first, rest)
+
 
 def map_link(f, s):
     """
@@ -535,7 +537,7 @@ for i in range(n-1):
 ##################
 
 
-lass RationalPrevious:
+class RationalPrevious:
     def __init__(self, num, den = 1):
         self.num = num
         self.den = den
