@@ -35,14 +35,25 @@
 
 (define (ordered? s)
     (if (or (null? s) (null? (cdr s)))
-        
+        #t
         (and (<= (car s) (cadr s)) (ordered? (cdr s)))
     )
 
 )
+
+
+
 (define (nodots s)
-  'YOUR-CODE-HERE
-  nil
+    (define (containdots s)
+        (and (pair? s) (not (or (pair? (cdr s)) (null? (cdr s)))))
+    )
+
+    (cond 
+        ((null? s) s)
+        ((containdots s) (list (nodots (car s)) (cdr s)))
+        ((pair? s) (cons (nodots (car s)) (nodots (cdr s))))
+        (#t s)
+    )
 )
 
 ; Sets as sorted lists
@@ -51,9 +62,11 @@
 
 (define (contains? s v)
     (cond ((empty? s) false)
-          'YOUR-CODE-HERE
-          (else nil) ; replace this line
-          ))
+          ((> (car s) v) false)
+          ((= (car s) v) true)
+          (else (contains? (cdr s) v)); replace this line
+    )
+)
 
 ; Equivalent Python code, for your reference:
 ;
@@ -70,17 +83,36 @@
 ;     else:
 ;         return contains(s.rest, v)
 
+
+
 (define (add s v)
     (cond ((empty? s) (list v))
-          'YOUR-CODE-HERE
-          (else nil) ; replace this line
-          ))
+          ((< v (car s)) (cons v s))
+          ((> v (car s)) (cons (car s) (add (cdr s) v)))
+          ((equal? v (car s)) s)
+          
+    )
+)
+
+
+
+
+
 
 (define (intersect s t)
     (cond ((or (empty? s) (empty? t)) nil)
-          'YOUR-CODE-HERE
-          (else nil) ; replace this line
-          ))
+          (else
+              (define e1 (car s))
+              (define e2 (car t))
+              (cond ((equal? e1 e2) (cons e1 (intersect (cdr s) (cdr t))))
+                    ((< e1 e2) (intersect (cdr s) t))
+                    ((< e2 e1) (intersect s (cdr t)))
+
+              )
+          )
+    )
+)
+
 
 ; Equivalent Python code, for your reference:
 ;
@@ -99,9 +131,17 @@
 (define (union s t)
     (cond ((empty? s) t)
           ((empty? t) s)
-          'YOUR-CODE-HERE
-          (else nil) ; replace this line
-          ))
+          (else
+              (define e1 (car s))
+              (define e2 (car t))
+              (cond ((equal? e1 e2) (cons e1 (union (cdr s) (cdr t))))
+                    ((< e1 e2) (cons e1 (union (cdr s) t)))
+                    ((< e2 e1) (cons e2 (union s (cdr t))))
+
+              )
+          )
+    )
+)
 
 ; Q9 - Survey
 (define (survey)
