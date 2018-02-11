@@ -66,3 +66,6 @@ class Stream:
 		return self._rest
 	def __repr__(self):
 		return 'Stream({0}, <...>)'.format(repr(self.first))
+
+
+
