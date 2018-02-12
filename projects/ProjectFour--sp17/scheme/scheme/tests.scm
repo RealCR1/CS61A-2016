@@ -104,6 +104,7 @@ circumference
 
 (define (f a)
   (sum-of-squares (+ a 1) (* a 2)))
+
 (f 5)
 ; expect 136
 
@@ -124,6 +125,8 @@ circumference
 
 (define (a-plus-abs-b a b)
   ((if (> b 0) + -) a b))
+; If the condition '> b 0' is true, use '+'. Else using '-'.
+
 (a-plus-abs-b 3 -2)
 ; expect 5
 
@@ -181,6 +184,10 @@ circumference
 ;;; 1.3.1
 
 (define (cube x) (* x x x))
+
+
+; What's the meaning of this definition?
+; the 'term' and 'next' are the function name just like 'cube' and 'inc'.
 (define (sum term a next b)
   (if (> a b)
       0
@@ -199,7 +206,7 @@ circumference
 ; expect 55
 
 ;;; 1.3.2
-
+; This usage worth to learning it.
 ((lambda (x y z) (+ x y (square z))) 1 2 3)
 ; expect 12
 
