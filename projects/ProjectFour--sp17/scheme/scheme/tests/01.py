@@ -32,23 +32,17 @@ test = {
           'code': r"""
           >>> src = Buffer(tokenize_lines(["(+ 1 ", "(+ 23 4)) ("]))
           >>> src.current()
-          c88ae7c644d2c96ad650a00028bff2c4
-          # locked
+          '('
           >>> src.remove_front()
-          c88ae7c644d2c96ad650a00028bff2c4
-          # locked
+          '('
           >>> src.current()
-          d71d84fd6e177113edf056534e6e8313
-          # locked
+          '+'
           >>> src.remove_front()
-          d71d84fd6e177113edf056534e6e8313
-          # locked
+          '+'
           >>> src.remove_front()
-          1d6ef7880cd9b59b64a1f4e1a1e35a12
-          # locked
+          1
           >>> scheme_read(src)
-          6c4217f08dee3ab8c574e916e1c826a8
-          # locked
+          Pair('+', Pair(23, Pair(4, nil)))
           >>> src.current()
           a2c805835d058917490ddf30d0951443
           # locked
