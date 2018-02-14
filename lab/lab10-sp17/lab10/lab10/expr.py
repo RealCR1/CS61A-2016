@@ -293,6 +293,7 @@ class LambdaFunction(Value):
         return self.body.eval(env)
 
     def __str__(self):
+        
         definition = LambdaExpr(self.parameters, self.body)
         return '<function {}>'.format(definition)
 
