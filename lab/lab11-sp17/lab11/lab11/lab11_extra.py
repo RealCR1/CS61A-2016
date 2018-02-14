@@ -18,6 +18,7 @@ class BinTree:
         right = 'BinTree.empty' if self.right == self.empty else repr(self.right)
         return 'BinTree({}, {}, {})'.format(repr(self.label), left, right)
 
+
 def binTree(tupleTree):
     """A convenience method for succinctly constructing binary trees.  The
     empty tuple or list stands for BinTree.empty; (V,) or [V] stands
@@ -46,7 +47,10 @@ def size(tree):
     >>> size(b)
     5
     """
-    "*** YOUR CODE HERE ***"
+    if tree is BinTree.empty:
+        return 0
+    return 1 + size(tree.left) + size(tee.right)
+
 
 def contains(bst, elem):
     """
@@ -58,7 +62,14 @@ def contains(bst, elem):
     >>> contains(b, 7)
     False
     """
-    "*** YOUR CODE HERE ***"
+    if not bst:
+        return False
+    elif bst.label == elem:
+        return True
+    elif bst.label > elem:
+        return contains(bst.left, elem)
+    return contains(bst.right, elem)
+    
 
 def unique(s):
     """Return a stream of the unique elements in s in the order that they
@@ -72,7 +83,23 @@ def unique(s):
     >>> s.rest.rest.rest.rest.rest.first
     9
     """
-    "*** YOUR CODE HERE ***"
+    real_s = set()
+    def make_unique(s):
+        def rest():
+            return make_unique(s.rest)
+        if s is Stream.empty:
+            return s
+        elif s.first in real_s:
+            return rest()
+        else:
+            real_s.add(s.first)
+            return Stream(s.first, rest)
+
+    return make_unique(s)
+
+
+
+
 
 def intersection(s1, s2):
     """Returns the intersection of two sets.
@@ -85,7 +112,8 @@ def intersection(s1, s2):
     >>> intersection(r, t)
     {4}
     """
-    "*** YOUR CODE HERE ***"
+    
+    
 
 def union(s1, s2):
     """Returns the union of two sets.
