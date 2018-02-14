@@ -110,8 +110,11 @@ class Name(Expr):
         ...     print('Exception raised!')
         Exception raised!
         """
-        "*** YOUR CODE HERE ***"
+        if self.string not in env:
+            raise NameError("name '{}' is not defined".format(self.string))
+        return env[self.string]
 
+      
     def __str__(self):
         return self.string
 
@@ -176,7 +179,10 @@ class CallExpr(Expr):
         >>> read('add(mul(3, 4), b)').eval(new_env)
         Number(14)
         """
-        "*** YOUR CODE HERE ***"
+        function = self.operator.eval(env)
+        arguments = [operand.eval(env) for operand in self.operands]
+        return function.apply(arguments)
+        
 
     def __str__(self):
         function = str(self.operator)
@@ -281,7 +287,10 @@ class LambdaFunction(Value):
         if len(self.parameters) != len(arguments):
             raise TypeError("Cannot match parameters {} to arguments {}".format(
                 comma_separated(self.parameters), comma_separated(arguments)))
-        "*** YOUR CODE HERE ***"
+        env = self.parent.copy()
+        for parameters, arguments in zip(self.parameters, arguments):
+            env[parameters] = arguments
+        return self.body.eval(env)
 
     def __str__(self):
         definition = LambdaExpr(self.parameters, self.body)
