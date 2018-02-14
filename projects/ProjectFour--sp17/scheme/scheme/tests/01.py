@@ -44,11 +44,10 @@ test = {
           >>> scheme_read(src)
           Pair('+', Pair(23, Pair(4, nil)))
           >>> src.current()
-          a2c805835d058917490ddf30d0951443
-          # locked
+          ')'
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
