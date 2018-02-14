@@ -75,7 +75,10 @@ def interleave(stream1, stream2):
     >>> alternating.rest.rest.rest.first
     1
     """
-    "*** YOUR CODE HERE ***"
+    if stream1 is Stream.empty:
+        return Stream.empty
+    return Stream(stream1.first, lambda: interleave(stream2, stream1.rest))
+
 
 def add_streams(s1, s2):
     """Returns a stream that is the sum of s1 and s2.
@@ -90,7 +93,10 @@ def add_streams(s1, s2):
     >>> added.rest.rest.first
     14
     """
-    "*** YOUR CODE HERE ***"
+    def compute_rest():
+        return add_streams(s1.rest, s2.rest)
+    return Stream(s1.first + s2.first, compute_rest)
+
 
 def find_duplicates(lst):
     """Returns True if lst has any duplicates and False if it does not.
@@ -102,4 +108,8 @@ def find_duplicates(lst):
     >>> find_duplicates(list(range(100000)) + [-1]) # make sure you have linear time
     False
     """
-    "*** YOUR CODE HERE ***"
+    return len(set(lst)) != len(lst)
+
+
+
+    
