@@ -161,7 +161,15 @@ def merge(s0, s1):
         return s0
 
     e0, e1 = s0.first, s1.first
-    "*** YOUR CODE HERE ***"
+
+    if e0 < e1:
+        return Stream(e0, lambda: merge(s0.rest, s1))
+    elif e0 == e1:
+        return Stream(e0, lambda: merge(s0.rest, s1.rest))
+    else:
+        return Stream(e1, lambda: merge(s0, s1.rest))
+
+    
 
 def make_s():
     """Return a stream over all positive integers with only factors 2, 3, & 5.

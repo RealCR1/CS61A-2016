@@ -2,3 +2,4 @@
 'substitute-correct', (512, 70)
 'sub-all-correct', (1024, 70)
 'scale_stream-correct', (1536, 70)
+'merge-correct', (2048, 70)
