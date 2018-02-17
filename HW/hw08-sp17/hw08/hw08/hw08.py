@@ -102,6 +102,7 @@ def make_integer_stream(first=1):
 def stream_to_list(s, n=10):
     """A list containing the elements of stream S,
     up to a maximum of N."""
+    
     r = []
     while n > 0 and s is not Stream.empty:
         r.append(s.first)
@@ -179,7 +180,8 @@ def make_s():
     [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24, 25, 27, 30, 32, 36]
     """
     def rest():
-        "*** YOUR CODE HERE ***"
+        return merge(merge(scale_stream(s, 2), scale_stream(s, 3)), scale_stream(s, 5))
+        
     s = Stream(1, rest)
     return s
 
