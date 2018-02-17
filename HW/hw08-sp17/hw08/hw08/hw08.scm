@@ -1,11 +1,21 @@
 (define (substitute s old new)
-  'YOUR-CODE-HERE
-)
+  (cond
+    ((null? s) nil)
+    ((pair? (car s)) (cons (substitute (car s) old new) (substitute (cdr s) old new)))
+    ((equal? (car s) old) (cons new (substitute (cdr s) old new)))
+    (else (cons (car s) (substitute (cdr s) old new)))
+    )
+  )
+  
+
 
 
 (define (sub-all s olds news)
-  'YOUR-CODE-HERE
+  (if (or (null? olds) (null? s)) s
+    (sub-all (substitute s (car olds) (car news)) (cdr olds) (cdr news))
+    )
 )
+
 
 (define (cadr s) (car (cdr s)))
 (define (caddr s) (cadr (cdr s)))

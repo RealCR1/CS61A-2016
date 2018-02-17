@@ -3,7 +3,6 @@ test = {
   'points': 1,
   'suites': [
     {
-      'type': 'scheme',
       'cases': [
         {
           'code': r"""
@@ -26,13 +25,17 @@ test = {
           scm> (exp? 'x)
           False
           """,
+          'hidden': False
         }
       ],
+      'scored': True,
       'setup': r"""
       scm> (load 'hw08)
       scm> (define x^2 (make-exp 'x 2))
       scm> (define x^3 (make-exp 'x 3))
       """,
-    },
+      'teardown': '',
+      'type': 'scheme'
+    }
   ]
 }

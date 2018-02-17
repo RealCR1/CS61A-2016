@@ -1,0 +1,4 @@
+'find_duplicates_k-correct', (0, 70)
+'substitute-correct', (512, 70)
+'sub-all-correct', (1024, 70)
+'scale_stream-correct', (1536, 70)

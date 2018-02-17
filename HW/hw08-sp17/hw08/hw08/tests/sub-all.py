@@ -3,13 +3,13 @@ test = {
   'points': 1,
   'suites': [
     {
-      'type': 'scheme',
       'cases': [
         {
           'code': r"""
           scm> (sub-all '(go ((bears))) '(go bears) '(big game))
           (big ((game)))
           """,
+          'hidden': False
         },
         {
           'code': r"""
@@ -18,12 +18,16 @@ test = {
           ....     '(one two three four))
           ((four calling birds) (three french hens) (two turtle doves))
           """,
-          'locked': False,
-        },
+          'hidden': False,
+          'locked': False
+        }
       ],
+      'scored': True,
       'setup': r"""
       scm> (load 'hw08)
       """,
-    },
+      'teardown': '',
+      'type': 'scheme'
+    }
   ]
 }

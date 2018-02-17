@@ -3,7 +3,6 @@ test = {
   'points': 1,
   'suites': [
     {
-      'type': 'scheme',
       'cases': [
         {
           'code': r"""
@@ -18,25 +17,32 @@ test = {
           scm> (make-sum 'a (make-sum 'x 1))
           (+ a (+ x 1))
           """,
-        },
+          'hidden': False
+        }
       ],
+      'scored': True,
       'setup': r"""
       scm> (load 'hw08)
       """,
+      'teardown': '',
+      'type': 'scheme'
     },
     {
-      'type': 'scheme',
       'cases': [
         {
           'code': r"""
           scm> (derive '(+ x 3) 'x)
           1
           """,
+          'hidden': False
         }
       ],
+      'scored': True,
       'setup': r"""
       scm> (load 'hw08)
       """,
-    },
+      'teardown': '',
+      'type': 'scheme'
+    }
   ]
 }

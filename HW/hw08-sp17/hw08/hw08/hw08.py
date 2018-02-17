@@ -8,7 +8,7 @@ def timeit(func):
 
 def missing_val(lst0, lst1):
     """Assuming that lst0 contains all the values in lst1, but lst1 is missing
-    one value in lst0, return the missing value.  The values need not be
+    one value in lst0, return the missing value. The values need not be
     numbers.
 
     >>> from random import shuffle
@@ -23,7 +23,10 @@ def missing_val(lst0, lst1):
     >>> timeit(lambda: missing_val(big0, big1)) < 1.0
     True
     """
-    "*** YOUR CODE HERE ***"
+    set_1 = set(lst0)
+    set_2 = set(lst1)
+    return sorted(set_1 - set_2)[0]
+
 
 def find_duplicates_k(k, lst):
     """Returns True if there are any duplicates in lst that are within k
@@ -36,7 +39,18 @@ def find_duplicates_k(k, lst):
     >>> find_duplicates_k(4, [1, 1, 2, 3, 3])
     True
     """
-    "*** YOUR CODE HERE ***"
+    lst_real = set()
+    for i in range(0, len(lst)):
+        if lst[i] in lst_real:
+            return True
+        else:
+            if i >= k:
+                lst_real.remove(lst[i-k])
+            lst_real.add(lst[i])
+    return False
+
+
+
 
 class Stream:
     """A lazily computed linked list."""
@@ -61,6 +75,7 @@ class Stream:
             assert callable(compute_rest), 'compute_rest must be callable.'
             self._compute_rest = compute_rest
 
+
     @property
     def rest(self):
         """Return the rest of the stream, computing it if necessary."""
@@ -69,8 +84,10 @@ class Stream:
             self._compute_rest = None
         return self._rest
 
+
     def __repr__(self):
         return 'Stream({0}, <...>)'.format(repr(self.first))
+
 
 def constant_stream(x):
     """The infinite stream all of whose values are X."""
@@ -121,7 +138,11 @@ def scale_stream(s, k):
     >>> stream_to_list(scale_stream(Stream.empty, 10))
     []
     """
-    "*** YOUR CODE HERE ***"
+    if s is Stream.empty:
+        return s
+    else:
+        return Stream(s.first * k, lambda: scale_stream(s.rest, k))
+    
 
 def merge(s0, s1):
     """Return a stream over the elements of strictly increasing s0 and s1,

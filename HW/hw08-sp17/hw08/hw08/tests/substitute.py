@@ -3,7 +3,6 @@ test = {
   'points': 1,
   'suites': [
     {
-      'type': 'scheme',
       'cases': [
         {
           'code': r"""
@@ -14,6 +13,7 @@ test = {
           scm> (substitute '(g (o) o (o)) 'o 'r)
           (g (r) r (r))
           """,
+          'hidden': False
         },
         {
           'code': r"""
@@ -27,12 +27,16 @@ test = {
           scm> (substitute '(a b (c) d e) 'foo 'bar)
           (a b (c) d e)
           """,
-          'locked': False,
-        },
+          'hidden': False,
+          'locked': False
+        }
       ],
+      'scored': True,
       'setup': r"""
       scm> (load 'hw08)
       """,
-    },
+      'teardown': '',
+      'type': 'scheme'
+    }
   ]
 }

@@ -3,7 +3,6 @@ test = {
   'points': 1,
   'suites': [
     {
-      'type': 'scheme',
       'cases': [
         {
           'code': r"""
@@ -16,14 +15,17 @@ test = {
           scm> (make-product 'a 'x)
           (* a x)
           """,
+          'hidden': False
         }
       ],
+      'scored': True,
       'setup': r"""
       scm> (load 'hw08)
       """,
+      'teardown': '',
+      'type': 'scheme'
     },
     {
-      'type': 'scheme',
       'cases': [
         {
           'code': r"""
@@ -32,12 +34,16 @@ test = {
           scm> (derive '(* (* x y) (+ x 3)) 'x)
           (+ (* y (+ x 3)) (* x y))
           """,
-          'locked': False,
+          'hidden': False,
+          'locked': False
         }
       ],
+      'scored': True,
       'setup': r"""
       scm> (load 'hw08)
       """,
-    },
+      'teardown': '',
+      'type': 'scheme'
+    }
   ]
 }
