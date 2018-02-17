@@ -102,7 +102,7 @@ def make_integer_stream(first=1):
 def stream_to_list(s, n=10):
     """A list containing the elements of stream S,
     up to a maximum of N."""
-    
+
     r = []
     while n > 0 and s is not Stream.empty:
         r.append(s.first)
@@ -202,6 +202,7 @@ def make_random_stream(seed, a, c, n):
     """
 
     "*** YOUR CODE HERE ***"
+
 
 def make_stream_of_streams():
     """
