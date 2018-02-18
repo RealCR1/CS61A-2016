@@ -153,6 +153,15 @@ class PrimitiveProcedure(Procedure):
             args = args.second
         # BEGIN PROBLEM 4
         "*** REPLACE THIS LINE ***"
+        if self.use_env is True:
+            python_args.append(env)
+        try:
+            return self.fn(*python_args)
+        except TypeError:
+            raise SchemeError("Wrong number of parameters were passed.")
+
+
+
         # END PROBLEM 4
 
 class UserDefinedProcedure(Procedure):
