@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': '103495fc3358e1b6354d1d4a277039e6',
+          'answer': 'Pair(A, nil), where: A is the quoted expression',
           'choices': [
             r"""
             Pair('quote', Pair(A, nil)), where:
@@ -25,7 +25,7 @@ test = {
             """
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'question': 'What is the structure of the expressions argument to do_quote_form?'
         }
       ],
@@ -37,48 +37,32 @@ test = {
         {
           'code': r"""
           scm> (quote hello)
-          506108214132d6cb9c307edb2f9d0f8b
-          # locked
+          hello
           scm> 'hello
-          506108214132d6cb9c307edb2f9d0f8b
-          # locked
+          hello
           scm> ''hello
-          11e53d0ebd5fcb87953db84e824e20c7
-          # locked
-          # choice: (quote hello)
-          # choice: hello
-          # choice: (hello)
-          # choice: (quote (quote (hello)))
+          (quote hello)
           scm> (quote (1 2))
-          e0115c13325291c6a30393eff9777ee4
-          # locked
+          (1 2)
           scm> '(1 2)
-          e0115c13325291c6a30393eff9777ee4
-          # locked
+          (1 2)
           scm> (quote (1 . 2))
-          9a8a33947ee1cd41aa91f5f15184c47b
-          # locked
+          (1 . 2)
           scm> '(1 . (2))
-          e0115c13325291c6a30393eff9777ee4
-          # locked
+          (1 2)
           scm> (car '(1 2 3))
-          1d6ef7880cd9b59b64a1f4e1a1e35a12
-          # locked
+          1
           scm> (cdr '(1 2))
-          1c70ebb4f1aabfcbe22f96bda497dd0b
-          # locked
+          (2)
           scm> (car (car '((1))))
-          1d6ef7880cd9b59b64a1f4e1a1e35a12
-          # locked
+          1
           scm> (quote 3)
-          ed2605996ac3b24d98b27c6d58145f06
-          # locked
+          3
           scm> (eval (cons 'car '('(4 2))))
-          5dc34dbe25d53109ac62b4184b75a40f
-          # locked
+          4
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         }
       ],
       'scored': True,

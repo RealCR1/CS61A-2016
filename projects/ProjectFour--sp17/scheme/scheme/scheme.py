@@ -229,6 +229,8 @@ def do_define_form(expressions, env):
         check_form(expressions, 2, 2)
         # BEGIN PROBLEM 6
         "*** REPLACE THIS LINE ***"
+        rest = scheme_eval(expressions.second.first, env)
+        env.define(target, rest)
         # END PROBLEM 6
     elif isinstance(target, Pair) and scheme_symbolp(target.first):
         # BEGIN PROBLEM 10
@@ -243,6 +245,7 @@ def do_quote_form(expressions, env):
     check_form(expressions, 1, 1)
     # BEGIN PROBLEM 7
     "*** REPLACE THIS LINE ***"
+    return expressions.first
     # END PROBLEM 7
 
 def do_begin_form(expressions, env):
