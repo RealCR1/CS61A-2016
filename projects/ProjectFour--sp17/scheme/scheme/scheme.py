@@ -32,7 +32,11 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 5
         "*** REPLACE THIS LINE ***"
+        procedure = scheme_eval(first, env)
+        check_procedure(procedure)
+        return procedure.eval_call(rest, env)
         # END PROBLEM 5
+
 
 def self_evaluating(expr):
     """Return whether EXPR evaluates to itself."""
@@ -119,6 +123,8 @@ class Procedure:
         in which the operands are to be evaluated."""
         # BEGIN PROBLEM 5
         "*** REPLACE THIS LINE ***"
+        args = operands.map(lambda func_op: scheme_eval(func_op, env))
+        return scheme_apply(self, args, env)
         # END PROBLEM 5
 
 def scheme_procedurep(x):
