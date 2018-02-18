@@ -148,9 +148,9 @@ def read_tail(src):
 	        # BEGIN PROBLEM 2
 	        src.remove_front()
 	        first_elem = scheme_read(src)
-	        recur_rest = read_tail(src)
-	        if not recur_rest is nil:
-	            raise SyntaxError("unexpected elem after '.'")
+	        rest_elem = read_tail(src)
+	        if rest_elem is not nil:
+	        	raise SyntaxError("Unexpected end element '.' ")
 	        return first_elem
 	        # END PROBLEM 2
 	    else:
