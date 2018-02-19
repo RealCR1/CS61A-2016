@@ -121,7 +121,7 @@ class Frame:
         while formals != nil:
             child.define(formals.first, vals.first)
             formals, vals = formals.second, vals.second
-            pass
+            
 
         # END PROBLEM 11
         return child
@@ -210,6 +210,7 @@ class LambdaProcedure(UserDefinedProcedure):
         of values, for a lexically-scoped call evaluated in environment ENV."""
         # BEGIN PROBLEM 12
         "*** REPLACE THIS LINE ***"
+        return self.env.make_child_frame(self.formals, args)
         # END PROBLEM 12
 
     def __str__(self):
