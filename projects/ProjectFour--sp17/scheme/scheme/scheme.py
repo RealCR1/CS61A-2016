@@ -116,6 +116,13 @@ class Frame:
         child = Frame(self) # Create a new child with self as the parent
         # BEGIN PROBLEM 11
         "*** REPLACE THIS LINE ***"
+        if len(formals) != len(vals):
+            raise SchemeError('Length should be match up.')
+        while formals != nil:
+            child.define(formals.first, vals.first)
+            formals, vals = formals.second, vals.second
+            pass
+
         # END PROBLEM 11
         return child
 
