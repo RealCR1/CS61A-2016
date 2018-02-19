@@ -32,9 +32,11 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 5
         "*** REPLACE THIS LINE ***"
-        procedure = scheme_eval(first, env)
-        check_procedure(procedure)
-        return procedure.eval_call(rest, env)
+        operator = scheme_eval(first, env)
+        operands = rest.map(lambda item: scheme_eval(item, env))
+        check_procedure(operator)
+        return scheme_apply(operator, operands, env)
+
         # END PROBLEM 5
 
 
@@ -53,7 +55,13 @@ def eval_all(expressions, env):
     environment ENV and return the value of the last."""
     # BEGIN PROBLEM 8
     "*** REPLACE THIS LINE ***"
-    return scheme_eval(expressions.first, env)
+    if expressions == nil:
+        return None
+    elif expressions.second == nil:
+        return scheme_eval(expressions.first, env, True)
+    else:
+        scheme_eval(expressions.first, env)
+        return eval_all(expressions.second, env)
     # END PROBLEM 8
 
 ################
