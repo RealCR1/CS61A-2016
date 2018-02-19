@@ -243,6 +243,9 @@ def do_define_form(expressions, env):
     elif isinstance(target, Pair) and scheme_symbolp(target.first):
         # BEGIN PROBLEM 10
         "*** REPLACE THIS LINE ***"
+        expr_pair = Pair(target.second, expressions.second)
+        env.define(target.first, do_lambda_form(expr_pair, env))
+        return target.first
         # END PROBLEM 10
     else:
         bad_target = target.first if isinstance(target, Pair) else target
